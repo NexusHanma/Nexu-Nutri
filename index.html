@@ -1,0 +1,2650 @@
+<!DOCTYPE html>
+<html lang="es" class="overflow-x-hidden">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexu Nutri</title>
+	<link rel="icon" type="image/png" href="images/mi_logo.png?v=2" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+	  
+	  /* Efecto Ripple (Ondas Interactivas) para Sobre Nosotros */
+    @keyframes ripple-expand {
+      0% { width: 0; height: 0; opacity: 1; }
+      100% { width: 500px; height: 500px; opacity: 0; }
+    }
+    .ripple-element {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      border-radius: 50%;
+      animation: ripple-expand 2s ease-out forwards;
+    }
+    .ripple-1 { border: 2px solid rgba(39, 24, 126, 0.3); } /* #27187E */
+    .ripple-2 { border: 2px solid rgba(0, 166, 251, 0.2); animation-delay: 0.2s; } /* #00A6FB */
+    .ripple-3 { border: 2px solid rgba(39, 24, 126, 0.1); animation-delay: 0.4s; }
+	  
+	  /* Estilos para el Carrusel Circular 3D de Socios */
+    .socios-perspective {
+      perspective: 1200px;
+    }
+    .socio-img {
+      transition: all 0.8s cubic-bezier(0.4, 2, 0.3, 1);
+      will-change: transform, opacity;
+      transform-style: preserve-3d;
+    }
+	  
+    /* Activar deslizamiento suave para todos los enlaces de la página */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Animaciones al hacer Scroll (Scroll Reveal) */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      will-change: opacity, transform;
+    }
+    .scroll-reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Perspectiva 3D para el contenedor */
+    .perspective-1000 {
+      perspective: 1000px;
+    }
+    
+    /* Animación de flotación suave independiente del movimiento del mouse */
+    @keyframes float-gentle {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    .floating-animation {
+      animation: float-gentle 4s ease-in-out infinite;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .cursor-blink {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background-color: #27187E;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+    }
+
+    /* Estilos del Card Stack 3D */
+    .card-stack-perspective {
+      perspective: 1100px;
+    }
+    .card-wrapper {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      margin-left: -160px; /* Mitad del ancho para centrar */
+      width: 320px;
+      height: 420px;
+      transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s;
+      will-change: transform, opacity;
+      transform-style: preserve-3d;
+      border-radius: 1rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      border: 4px solid rgba(0, 0, 0, 0.05);
+      user-select: none;
+    }
+    @media (min-width: 640px) {
+      .card-wrapper {
+        margin-left: -260px;
+        width: 520px;
+        height: 380px;
+      }
+    }
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      position: relative;
+      background-color: #fff;
+    }
+    .cursor-grab { cursor: grab; }
+    .cursor-grabbing { cursor: grabbing !important; }
+    
+    /* Estilos para el Slider Infinito Automático */
+    @keyframes scroll-right {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .infinite-scroll {
+      /* La animación dura 30s. Si quieres que vaya más rápido, baja ese número */
+      animation: scroll-right 30s linear infinite;
+      width: max-content;
+    }
+
+    /* Pausar la animación cuando el usuario pone el mouse encima */
+    .infinite-scroll:hover {
+      animation-play-state: paused;
+    }
+
+    .scroll-container {
+      /* Máscara de desvanecimiento en los bordes */
+      mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+      -webkit-mask: linear-gradient(90deg, transparent 0%, black 10%, black 90%, transparent 100%);
+    }
+
+    .image-item {
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .image-item:hover {
+      transform: scale(1.05);
+      filter: brightness(1.1);
+    }
+  </style>
+</head>
+<body class="bg-[#ededed] text-neutral-900 overflow-x-hidden relative max-w-[100vw] m-0 p-0">
+
+  <!-- Inicio (Hero Container) -->
+  <div id="inicio" class="relative w-full h-[calc(100vh-24px)] sm:h-[calc(100vh-32px)] overflow-hidden bg-[#d9d9d9] rounded-2xl sm:rounded-3xl shadow-sm">
+    
+    <!-- Background Video -->
+    <video 
+      src="images/Los_perros_este_jugando.mp4" 
+      class="absolute inset-0 w-full h-full object-cover pointer-events-none"
+      autoplay loop muted playsinline preload="auto" disableRemotePlayback>
+    </video>
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-white/40 z-0"></div>
+
+    <!-- Foreground Content Wrapper -->
+    <div class="relative z-10 h-full flex flex-col">
+      
+      <!-- ========================================== -->
+  <!-- NAVBAR COMPLETO (Con Menú Móvil) -->
+  <!-- ========================================== -->
+  <div class="flex justify-center pt-4 sm:pt-6 px-3 sm:px-4 z-50 fixed top-0 w-full left-0">
+    <nav class="bg-white rounded-full shadow-md border border-neutral-200 pl-2 pr-2 py-2 w-full max-w-[1000px] relative flex items-center justify-between z-20">
+
+      <!-- 1. TU LOGO AQUÍ -->
+      <a href="#inicio" class="shrink-0 flex items-center justify-center ml-2">
+        <img src="images/mi_logo.png" alt="Nexu-Nutri Logo" class="h-8 w-auto object-contain" />
+      </a>
+
+      <!-- 2. LINKS DE NAVEGACIÓN (Escritorio) -->
+      <div class="hidden md:flex items-center gap-5 ml-6 text-[14px] font-semibold text-neutral-600">
+        <a href="#inicio" class="hover:text-[#27187E] transition-colors">Inicio</a>
+        <a href="#productos" class="hover:text-[#27187E] transition-colors">Productos</a>
+        <a href="#testimonios" class="hover:text-[#27187E] transition-colors">Testimonios</a>
+        <a href="#socios" class="hover:text-[#27187E] transition-colors">Socios</a>
+      </div>
+
+      <!-- Barra de búsqueda (Escritorio) -->
+      <div class="hidden md:block flex-1 ml-6 mr-6 relative">
+        <input type="text" id="searchInput" placeholder="Buscar snacks, socios..." class="w-full bg-neutral-100 text-[13px] text-neutral-800 rounded-full pl-5 pr-10 py-2 border border-transparent focus:outline-none focus:border-[#27187E] focus:bg-white focus:shadow-md transition-all duration-300">
+        <svg class="w-4 h-4 text-neutral-400 absolute right-4 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+      </div>
+
+      <!-- Right Cluster (Carrito + Menú Hamburguesa) -->
+      <div class="flex items-center gap-2 pr-2">
+        <!-- Botón Carrito -->
+        <button id="btn-abrir-carrito" class="relative bg-[#27187E] hover:bg-[#1a0f5e] text-white px-4 py-2 rounded-full font-bold flex items-center gap-2 transition-all shadow-md text-[13px]">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+          <span class="hidden sm:inline">Carrito</span>
+          
+          <!-- Aquí está el contador rojo de regreso -->
+          <span id="carrito-contador" class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center hidden border-2 border-white shadow-sm">0</span>
+        </button>
+
+        <!-- Botón Hamburguesa (Solo Móvil) -->
+        <button id="btn-menu-movil" class="md:hidden p-2 text-[#27187E] bg-neutral-100 rounded-full hover:bg-neutral-200 transition-colors focus:outline-none">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Menú Desplegable Móvil (Escondido arriba) -->
+    <div id="menu-movil-desplegable" class="md:hidden absolute top-[70px] left-4 right-4 bg-white shadow-xl rounded-2xl border border-neutral-100 overflow-hidden transform -translate-y-[150%] opacity-0 transition-all duration-300 z-10">
+      <div class="flex flex-col p-4 gap-2">
+        <a href="#inicio" class="nav-link-movil text-center py-3 font-bold text-neutral-700 hover:bg-[#f7f7ff] hover:text-[#27187E] rounded-xl transition-colors">Inicio</a>
+        <a href="#productos" class="nav-link-movil text-center py-3 font-bold text-neutral-700 hover:bg-[#f7f7ff] hover:text-[#27187E] rounded-xl transition-colors">Productos</a>
+        <a href="#testimonios" class="nav-link-movil text-center py-3 font-bold text-neutral-700 hover:bg-[#f7f7ff] hover:text-[#27187E] rounded-xl transition-colors">Testimonios</a>
+        <a href="#socios" class="nav-link-movil text-center py-3 font-bold text-neutral-700 hover:bg-[#f7f7ff] hover:text-[#27187E] rounded-xl transition-colors">Socios</a>
+      </div>
+    </div>
+  </div>
+
+      <!-- Contenedor central (Se desvanece suavemente con el scroll) -->
+      <div id="hero-fade-content" class="flex-1 flex flex-col items-center justify-center px-4 pb-12 text-center mt-[-2rem] w-full">
+        
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-white rounded-full px-4 py-1.5 shadow-sm text-[12px] font-bold text-neutral-800 tracking-wide mb-4 border border-neutral-100">
+          <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-pulse"></span>
+          NUEVO LANZAMIENTO
+        </div>
+
+        <!-- Headline estilo CARTEL -->
+        <h1 class="max-w-4xl text-[#1a1a1a] font-black tracking-tighter uppercase drop-shadow-md" style="font-size: clamp(45px, 8vw, 90px); line-height: 0.9;">
+          NUTRICIÓN<br>PREMIUM<br>PARA TU<br>
+          <span class="relative inline-block z-10 mt-2 px-5 py-2 text-[#F7F7FF]">
+            MEJOR AMIGO
+            <span class="absolute inset-0 bg-[#27187E] -z-10 rotate-[-1.5deg] rounded-md shadow-lg"></span>
+          </span>
+        </h1>
+
+        <!-- Subtitle (Máquina de escribir) -->
+        <div class="h-[50px] sm:h-[30px] mt-6 flex items-center justify-center">
+          <p id="typewriter-text" class="text-neutral-800 font-semibold max-w-xl" style="font-size: clamp(15px, 3vw, 18px);">
+          </p>
+        </div>
+
+        <!-- Rectángulo Destacado -->
+        <div class="mt-5 bg-[#27187E] text-[#F7F7FF] px-6 py-2.5 rounded-lg text-[14px] sm:text-[15px] font-semibold shadow-lg tracking-wide border border-[#3e2c9e]">
+          ¡Envío gratis en compras mayores a $500!
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="mt-10 flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto px-4 sm:px-0">
+          <a href="#comprar" class="w-full sm:w-auto inline-flex justify-center items-center gap-3 bg-[#27187E] text-white rounded-full px-8 py-3.5 text-[15px] font-bold hover:bg-[#1f1366] transition-colors shadow-lg">
+            Probar ahora
+          </a>
+          <a href="#productos" class="w-full sm:w-auto inline-flex justify-center items-center gap-3 bg-white text-[#27187E] border-2 border-[#27187E] rounded-full px-8 py-3.5 text-[15px] font-bold hover:bg-neutral-50 transition-colors shadow-sm">
+            Ver productos
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+	<!-- ========================================== -->
+  <!-- SECCIÓN SOBRE NOSOTROS (Con Ripple Interactivo) -->
+  <!-- ========================================== -->
+  <section id="sobre-nosotros" class="relative w-full min-h-[75vh] flex items-center justify-center bg-gradient-to-br from-[#f7f7ff] via-white to-[#e8f0fe] overflow-hidden cursor-pointer py-20 px-4 z-10">
+    
+    <!-- Contenedor donde se inyectarán las ondas mágicas -->
+    <div id="ripple-container" class="absolute inset-0 w-full h-full pointer-events-none overflow-hidden"></div>
+
+    <!-- Contenido -->
+    <div class="relative z-10 max-w-5xl mx-auto text-center pointer-events-none">
+      
+      <!-- La clase pointer-events-auto permite seleccionar el texto, pero el fondo sigue detectando el clic -->
+      <span class="inline-block py-1.5 px-4 rounded-full bg-[#27187E]/10 text-[#27187E] font-bold text-xs sm:text-sm uppercase tracking-wider mb-4 pointer-events-auto scroll-reveal">Nuestra Historia</span>
+      
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-black text-[#1a1a1a] tracking-tight mb-6 pointer-events-auto scroll-reveal">
+        Más que snacks, <span class="text-[#27187E]">somos familia</span>
+      </h2>
+      
+      <p class="text-neutral-600 text-lg md:text-xl leading-relaxed mb-12 pointer-events-auto max-w-3xl mx-auto scroll-reveal">
+        En Nexu-Nutri, nacimos de una necesidad real: darle a nuestros mejores amigos la nutrición que verdaderamente merecen. Cansados de los productos ultraprocesados, decidimos crear recetas artesanales con ingredientes 100% naturales y llenos de amor.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pointer-events-auto scroll-reveal">
+        
+        <!-- Tarjeta Misión -->
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/80 hover:-translate-y-2 transition-transform duration-300 text-left">
+          <div class="w-14 h-14 bg-[#27187E] text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-[#27187E]/30">🎯</div>
+          <h3 class="text-2xl font-black text-[#27187E] mb-3">Nuestra Misión</h3>
+          <p class="text-neutral-600 leading-relaxed font-medium">Revolucionar la industria de la nutrición canina ofreciendo snacks que no solo saben increíble, sino que previenen enfermedades, mejoran la digestión y alargan los años de felicidad de tu mascota.</p>
+        </div>
+        
+        <!-- Tarjeta Metas -->
+        <div class="bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/80 hover:-translate-y-2 transition-transform duration-300 text-left">
+          <div class="w-14 h-14 bg-[#00A6FB] text-white rounded-2xl flex items-center justify-center text-2xl mb-6 shadow-lg shadow-[#00A6FB]/30">⭐</div>
+          <h3 class="text-2xl font-black text-[#00A6FB] mb-3">Nuestras Metas</h3>
+          <p class="text-neutral-600 leading-relaxed font-medium">Construir una comunidad gigante de dueños informados. Queremos erradicar el uso de conservadores químicos y posicionarnos como la marca líder de premios naturales y funcionales en México.</p>
+        </div>
+
+      </div>
+      
+      <p class="text-neutral-400 text-sm mt-12 font-medium italic pointer-events-auto animate-pulse">Da clic en el fondo para crear ondas de energía ✨</p>
+    </div>
+  </section>
+
+  <!-- SECCIÓN PRODUCTOS (Con Card Stack 3D) -->
+  <section id="productos" class="min-h-[80vh] pt-20 px-4 flex flex-col items-center">
+    <div class="max-w-5xl mx-auto w-full text-center">
+      <h2 class="text-3xl font-black text-[#27187E] mb-4 uppercase tracking-tight">Nuestros Productos</h2>
+      <p class="text-neutral-500 mb-12">Desliza para descubrir las mejores opciones para su nutrición.</p>
+      
+      <!-- Contenedor del Stack -->
+      <div id="card-stack-container" class="relative w-full h-[450px] card-stack-perspective focus:outline-none" tabindex="0">
+        
+        <!-- Sombras de fondo para ambiente 3D -->
+        <div class="pointer-events-none absolute inset-x-0 top-6 mx-auto h-48 w-[70%] rounded-full bg-black/5 blur-3xl"></div>
+        <div class="pointer-events-none absolute inset-x-0 bottom-0 mx-auto h-40 w-[76%] rounded-full bg-black/10 blur-3xl"></div>
+        
+        <!-- Las tarjetas se inyectarán aquí vía JS -->
+        <div id="cards-render-zone" class="absolute inset-0"></div>
+
+      </div>
+
+      <!-- Navegación de Puntos (Dots) -->
+      <div id="card-dots" class="mt-8 flex items-center justify-center gap-2"></div>
+    </div>
+  </section>
+  
+ <!-- SECCIÓN COMPRAR AHORA -->
+  <section id="comprar" class="min-h-screen py-20 px-4 relative z-10 bg-gradient-to-b from-[#e8f0fe] to-white overflow-hidden">
+    
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-black text-[#27187E] mb-4 uppercase tracking-tight">Kits De Snacks</h2>
+        <p class="text-neutral-600">Selecciona el paquete ideal para tu mejor amigo.</p>
+      </div>
+
+      <div class="flex flex-col md:flex-row flex-wrap justify-center items-center gap-8">
+        
+        <!-- TARJETA 1: LUNA -->
+        <div class="group relative w-[320px] h-[450px] shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2">
+          <img src="images/Carrusel_luna.png" alt="Kit Luna" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          
+          <div class="relative flex h-full flex-col justify-between p-6 text-white">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a6 6 0 0 1-5.5-3.8 2.5 2.5 0 0 1 .5-2.2 4 4 0 0 1 2.2-.8c2 0 3 2.5 5 2.5s3-2.5 5-2.5a4 4 0 0 1 2.2.8 2.5 2.5 0 0 1 .5 2.2A6 6 0 0 1 12 20Z"/><path d="M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M6 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M18 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
+            </div>
+            
+            <div class="space-y-4 transition-transform duration-500 ease-in-out group-hover:-translate-y-16">
+              <div>
+                <h3 class="text-3xl font-bold text-white">Snack Pequeño</h3>
+                <p class="text-sm text-white/80">Para razas pequeñas y medianas</p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-white/90 text-sm tracking-wider">70g</h4>
+                <p class="text-sm text-white/70 leading-relaxed">
+                  Un balance perfecto de proteínas que le darán a tu mascota la energía que necesita para sus aventuras diarias. Incluye snacks dentales.
+                </p>
+              </div>
+            </div>
+
+            <div class="absolute -bottom-20 left-0 w-full p-6 opacity-0 transition-all duration-500 ease-in-out group-hover:bottom-0 group-hover:opacity-100">
+              <div class="flex items-end justify-between">
+                <div>
+                  <span class="text-3xl font-bold text-white">$129</span>
+                  <span class="text-white/80 text-sm"> mes </span>
+                </div>
+                <button class="btn-agregar-carrito inline-flex h-10 items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-neutral-200 cursor-pointer relative z-50" data-nombre="Snack Pequeño" data-precio="99">
+  Comprar 
+  <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA 2: NEXUS -->
+        <div class="group relative w-[320px] h-[450px] shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2">
+          <img src="images/carrusel_nexus.png" alt="Kit Nexus" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          
+          <div class="relative flex h-full flex-col justify-between p-6 text-white">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a6 6 0 0 1-5.5-3.8 2.5 2.5 0 0 1 .5-2.2 4 4 0 0 1 2.2-.8c2 0 3 2.5 5 2.5s3-2.5 5-2.5a4 4 0 0 1 2.2.8 2.5 2.5 0 0 1 .5 2.2A6 6 0 0 1 12 20Z"/><path d="M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M6 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M18 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
+            </div>
+            
+            <div class="space-y-4 transition-transform duration-500 ease-in-out group-hover:-translate-y-16">
+              <div>
+                <h3 class="text-3xl font-bold text-white">Snack Mediano</h3>
+                <p class="text-sm text-white/80">Alta energía y rendimiento</p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-white/90 text-sm tracking-wider">150g</h4>
+                <p class="text-sm text-white/70 leading-relaxed">
+                  Nutrición premium formulada específicamente para mantener músculos fuertes y un pelaje brillante.
+                </p>
+              </div>
+            </div>
+
+            <div class="absolute -bottom-20 left-0 w-full p-6 opacity-0 transition-all duration-500 ease-in-out group-hover:bottom-0 group-hover:opacity-100">
+              <div class="flex items-end justify-between">
+                <div>
+                  <span class="text-3xl font-bold text-white">$199</span>
+                  <span class="text-white/80 text-sm"> mes</span>
+                </div>
+                <button class="btn-agregar-carrito inline-flex h-10 items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-neutral-200 cursor-pointer relative z-50" data-nombre="Snack Mediano" data-precio="149">
+  Comprar 
+  <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA 3: TOPANGA -->
+        <div class="group relative w-[320px] h-[450px] shrink-0 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg transition-all duration-300 ease-in-out hover:shadow-2xl hover:-translate-y-2">
+          <img src="images/carrusel_topanga.png" alt="Kit Topanga" class="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110" />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+          
+          <div class="relative flex h-full flex-col justify-between p-6 text-white">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/50 bg-black/20 backdrop-blur-sm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20a6 6 0 0 1-5.5-3.8 2.5 2.5 0 0 1 .5-2.2 4 4 0 0 1 2.2-.8c2 0 3 2.5 5 2.5s3-2.5 5-2.5a4 4 0 0 1 2.2.8 2.5 2.5 0 0 1 .5 2.2A6 6 0 0 1 12 20Z"/><path d="M12 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M6 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/><path d="M18 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/></svg>
+            </div>
+            
+            <div class="space-y-4 transition-transform duration-500 ease-in-out group-hover:-translate-y-16">
+              <div>
+                <h3 class="text-3xl font-bold text-white">Snack Grande</h3>
+                <p class="text-sm text-white/80">Cuidado especial digestivo</p>
+              </div>
+              <div>
+                <h4 class="font-semibold text-white/90 text-sm tracking-wider">240g</h4>
+                <p class="text-sm text-white/70 leading-relaxed">
+                  Receta suave, deliciosa e ideal para estómagos sensibles. Elaborada con ingredientes 100% naturales para el máximo cuidado.
+                </p>
+              </div>
+            </div>
+
+            <div class="absolute -bottom-20 left-0 w-full p-6 opacity-0 transition-all duration-500 ease-in-out group-hover:bottom-0 group-hover:opacity-100">
+              <div class="flex items-end justify-between">
+                <div>
+                  <span class="text-3xl font-bold text-white">$299</span>
+                  <span class="text-white/80 text-sm"> mes</span>
+                </div>
+                <button class="btn-agregar-carrito inline-flex h-10 items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium text-black transition-colors hover:bg-neutral-200 cursor-pointer relative z-50" data-nombre="Snack Grande" data-precio="199">
+  Comprar 
+  <svg class="ml-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
+  <!-- SECCIÓN SLIDER INFINITO (GALERÍA) -->
+  <section id="galeria" class="py-20 w-full bg-black relative overflow-hidden flex flex-col items-center justify-center z-10">
+    <div class="absolute inset-0 bg-gradient-to-b from-[#1a1a1a] via-black to-black z-0"></div>
+    
+    <div class="text-center mb-10 relative z-10 px-4">
+      <h2 class="text-3xl font-black text-white mb-2 uppercase tracking-tight">Comunidad Nexu-Nutri</h2>
+      <p class="text-neutral-400">Perritos felices que ya disfrutan de nuestra calidad.</p>
+    </div>
+
+    <div class="relative z-10 w-full flex items-center justify-center overflow-hidden">
+      <div class="scroll-container w-full max-w-[100vw] overflow-hidden">
+        <div class="infinite-scroll flex gap-4 sm:gap-6 px-4">
+          
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/afriquita.png" alt="Perrito feliz 1" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/2.png" alt="Galería 2" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/3.png" alt="Galería 3" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/4.png" alt="Galería 4" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/5.png" alt="Galería 5" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/6.png" alt="Galería 6" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/7.png" alt="Galería 7" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/8.png" alt="Galería 8" class="w-full h-full object-cover" loading="lazy">
+          </div>
+
+          <!-- BLOQUE 2 DE IMÁGENES -->
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/afriquita.png" alt="Galería 1" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/2.png" alt="Galería 2" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/3.png" alt="Galería 3" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/4.png" alt="Galería 4" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/5.png" alt="Galería 5" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/6.png" alt="Galería 6" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/7.png" alt="Galería 7" class="w-full h-full object-cover" loading="lazy">
+          </div>
+          <div class="image-item flex-shrink-0 w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 rounded-xl overflow-hidden shadow-2xl">
+            <img src="images/8.png" alt="Galería 8" class="w-full h-full object-cover" loading="lazy">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SECCIÓN INTERACTIVA 3D (EMPAQUE FLOTANTE) -->
+  <section id="interactivo" class="min-h-[70vh] py-20 px-4 bg-neutral-950 relative flex items-center justify-center overflow-hidden z-10">
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-[#27187E]/40 via-neutral-950 to-neutral-950 pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 relative z-10 w-full">
+      <div class="flex-1 text-center md:text-left">
+        <div class="inline-flex items-center gap-2 bg-white/10 rounded-full px-4 py-1.5 shadow-sm text-[12px] font-bold text-indigo-200 tracking-wide mb-6 border border-white/10 backdrop-blur-sm">
+          <span class="w-2.5 h-2.5 rounded-full bg-indigo-400 animate-pulse"></span>
+          NEXU-NUTRI
+        </div>
+        <h2 class="text-4xl md:text-6xl font-black bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500 mb-6 tracking-tight leading-tight">
+          Nutrición que <br>se siente viva.
+        </h2>
+        <p class="text-neutral-400 text-lg max-w-lg mx-auto md:mx-0">
+          Conoce nuestro empaque y descubre cómo la calidad salta a la vista. Diseñado con los mejores ingredientes para tu mascota.
+        </p>
+      </div>
+
+      <div class="flex-1 flex justify-center items-center perspective-1000 w-full min-h-[500px]" id="tilt-container">
+        <div class="relative w-72 md:w-[450px] lg:w-[550px] h-auto floating-animation">
+          <img 
+            src="images/sobre_nexus.png" 
+            alt="Snack Nexu-Nutri" 
+            id="tilt-image" 
+            class="w-full h-auto drop-shadow-[0_35px_45px_rgba(0,0,0,0.6)] transition-transform duration-200 ease-out will-change-transform"
+            style="transform-style: preserve-3d;"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SECCIÓN MODELOS ESTRELLAS (CARRUSEL) -->
+  <section id="modelos" class="py-20 px-4 bg-white relative z-10">
+    <div class="max-w-5xl mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl font-black text-[#27187E] mb-4 uppercase tracking-tight">Nuestros Modelos Estrellas</h2>
+        <p class="text-neutral-500">Conoce a los perritos que inspiran cada una de nuestras recetas.</p>
+      </div>
+
+      <div class="relative w-full max-w-3xl mx-auto group overflow-hidden rounded-2xl shadow-xl border border-neutral-100 bg-neutral-50">
+        <div id="carousel-track" class="flex transition-transform duration-500 ease-in-out w-full h-[500px]">
+          <div class="w-full h-full flex-shrink-0 relative">
+            <img src="images/dog_small.png" alt="Luna" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-10 left-0 w-full text-center">
+              <h3 class="text-4xl font-black text-white tracking-wide drop-shadow-md">TUSA</h3>
+              <p class="text-white/80 font-medium tracking-widest uppercase text-sm mt-1">Energia pura</p>
+            </div>
+          </div>
+          <div class="w-full h-full flex-shrink-0 relative">
+            <img src="images/dog_medium.png" alt="Nexus" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-10 left-0 w-full text-center">
+              <h3 class="text-4xl font-black text-white tracking-wide drop-shadow-md">NEXUS</h3>
+              <p class="text-white/80 font-medium tracking-widest uppercase text-sm mt-1">GOAT</p>
+            </div>
+          </div>
+          <div class="w-full h-full flex-shrink-0 relative">
+            <img src="images/dog_large.png" alt="Topanga" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="absolute bottom-10 left-0 w-full text-center">
+              <h3 class="text-4xl font-black text-white tracking-wide drop-shadow-md">TOPANGA</h3>
+              <p class="text-white/80 font-medium tracking-widest uppercase text-sm mt-1">Lealtad</p>
+            </div>
+          </div>
+        </div>
+
+        <button id="carousel-prev" class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#27187E] p-2.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed z-10" aria-label="Anterior">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button id="carousel-next" class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white text-[#27187E] p-2.5 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed z-10" aria-label="Siguiente">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+
+        <div class="absolute bottom-4 left-0 w-full flex justify-center gap-2 z-10" id="carousel-indicators">
+          <button class="carousel-dot w-2.5 h-2.5 rounded-full transition-all duration-300 bg-white w-6" data-index="0"></button>
+          <button class="carousel-dot w-2.5 h-2.5 rounded-full transition-all duration-300 bg-white/50 hover:bg-white/80" data-index="1"></button>
+          <button class="carousel-dot w-2.5 h-2.5 rounded-full transition-all duration-300 bg-white/50 hover:bg-white/80" data-index="2"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SECCIÓN INGREDIENTES -->
+  <section id="ingredientes" class="py-24 px-4 bg-[#27187E] relative z-10 overflow-hidden">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 scroll-reveal text-reveal">
+        <p class="text-indigo-300 font-bold tracking-widest text-xs sm:text-sm uppercase mb-3">Ingredientes</p>
+        <h2 class="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">Solo lo que tu perro<br>necesita</h2>
+        <p class="text-indigo-100/80 text-lg max-w-2xl mx-auto">Seleccionamos cada ingrediente por su valor nutricional y su frescura.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        <div class="w-full h-full scroll-reveal image-reveal">
+          <img src="images/ingredients.png" alt="Ingredientes frescos" class="w-full h-full object-cover rounded-[2rem] shadow-2xl aspect-square lg:aspect-[4/5]">
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <div class="flex items-start gap-5 bg-[#f7f7ff] border border-neutral-200 p-5 rounded-2xl scroll-reveal card-reveal transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-default" data-delay="1">
+            <div class="w-12 h-12 rounded-full bg-[#27187E] flex items-center justify-center shrink-0 shadow-md">
+              <span class="text-xl">🍗</span>
+            </div>
+            <div>
+              <h3 class="text-[#27187E] font-black text-lg">Pollo Deshidratado</h3>
+              <p class="text-neutral-600 text-sm mt-1 leading-relaxed font-medium">Fuente principal de proteína magra para músculos fuertes.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-5 bg-[#f7f7ff] border border-neutral-200 p-5 rounded-2xl scroll-reveal card-reveal transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-default" data-delay="2">
+            <div class="w-12 h-12 rounded-full bg-[#27187E] flex items-center justify-center shrink-0 shadow-md">
+              <span class="text-xl">🍠</span>
+            </div>
+            <div>
+              <h3 class="text-[#27187E] font-black text-lg">Camote Natural</h3>
+              <p class="text-neutral-600 text-sm mt-1 leading-relaxed font-medium">Carbohidratos complejos de liberación lenta para energía sostenida.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-5 bg-[#f7f7ff] border border-neutral-200 p-5 rounded-2xl scroll-reveal card-reveal transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-default" data-delay="3">
+            <div class="w-12 h-12 rounded-full bg-[#27187E] flex items-center justify-center shrink-0 shadow-md">
+              <span class="text-xl">🫐</span>
+            </div>
+            <div>
+              <h3 class="text-[#27187E] font-black text-lg">Arándanos</h3>
+              <p class="text-neutral-600 text-sm mt-1 leading-relaxed font-medium">Antioxidantes naturales que fortalecen el sistema inmune.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start gap-5 bg-[#f7f7ff] border border-neutral-200 p-5 rounded-2xl scroll-reveal card-reveal transition-all duration-300 hover:scale-[1.03] hover:shadow-xl cursor-default" data-delay="4">
+            <div class="w-12 h-12 rounded-full bg-[#27187E] flex items-center justify-center shrink-0 shadow-md">
+              <span class="text-xl">🐟</span>
+            </div>
+            <div>
+              <h3 class="text-[#27187E] font-black text-lg">Aceite de Salmón</h3>
+              <p class="text-neutral-600 text-sm mt-1 leading-relaxed font-medium">Omega 3 para articulaciones sanas y pelaje brillante.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- SECCIÓN CITA Y ESTADÍSTICAS -->
+  <section id="cita-estadisticas" class="w-full relative z-10 flex flex-col">
+    <div class="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <img src="images/Mis_niños.png" alt="Perros felices en la naturaleza" class="absolute inset-0 w-full h-full object-cover z-0">
+      <div class="absolute inset-0 bg-white/60 z-10 backdrop-blur-[2px]"></div>
+      <div class="relative z-20 text-center px-4 w-full scroll-reveal">
+        <h2 class="text-3xl md:text-5xl lg:text-6xl md:px-10 font-black text-[#1a1a1a] uppercase mb-4 leading-tight">
+          "Un perro no cambia el mundo, pero para él, tú eres el mundo entero"
+        </h2>
+        <p class="text-[#27187E] text-lg md:text-xl font-bold">
+          Honramos su lealtad con lo que necesitan: nutrición de calidad y amor para siempre.
+        </p>
+      </div>
+    </div>
+
+    <div class="w-full bg-white py-12 md:py-16 shadow-inner relative z-20">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 text-center scroll-reveal" id="stats-container">
+          <div class="flex flex-col items-center justify-center">
+            <div class="text-4xl md:text-5xl font-black text-[#27187E] mb-2 flex items-center">
+              <span class="counter" data-target="50000">0</span><span class="text-[#27187E]">+</span>
+            </div>
+            <p class="text-neutral-500 font-bold text-[11px] md:text-xs uppercase tracking-widest">Perros Felices</p>
+          </div>
+          <div class="flex flex-col items-center justify-center">
+            <div class="text-4xl md:text-5xl font-black text-[#27187E] mb-2 flex items-center">
+              <span class="counter" data-target="100">0</span><span class="text-[#27187E]">%</span>
+            </div>
+            <p class="text-neutral-500 font-bold text-[11px] md:text-xs uppercase tracking-widest">Natural</p>
+          </div>
+          <div class="flex flex-col items-center justify-center">
+            <div class="text-4xl md:text-5xl font-black text-[#27187E] mb-2 flex items-center">
+              <span class="counter" data-target="12">0</span>
+            </div>
+            <p class="text-neutral-500 font-bold text-[11px] md:text-xs uppercase tracking-widest">Sabores Únicos</p>
+          </div>
+          <div class="flex flex-col items-center justify-center">
+            <div class="text-4xl md:text-5xl font-black text-[#27187E] mb-2 flex items-center">
+              <span class="counter" data-target="98">0</span><span class="text-[#27187E]">%</span>
+            </div>
+            <p class="text-neutral-500 font-bold text-[11px] md:text-xs uppercase tracking-widest">Satisfacción</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Contenedor para las notificaciones (Toast) -->
+  <div id="toast-container" class="fixed bottom-4 right-4 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- SECCIÓN TESTIMONIOS (CARRUSEL) -->
+  <section id="testimonios" class="py-20 px-4 bg-gradient-to-b from-[#f7f7ff] to-white relative overflow-hidden z-10">
+    <div class="max-w-6xl mx-auto relative">
+      <div class="text-center mb-12 lg:mb-16 scroll-reveal">
+        <span class="inline-block py-1.5 px-4 rounded-full bg-[#27187E]/10 text-[#27187E] font-bold text-xs sm:text-sm uppercase tracking-wider mb-3">
+          Testimonios
+        </span>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-[#1a1a1a] tracking-tight">
+          Perritos sanos, <span class="text-[#27187E]">dueños felices</span>
+        </h2>
+        <div class="w-20 h-1 bg-[#27187E] mx-auto mt-6 rounded-full"></div>
+      </div>
+
+      <div class="flex justify-center md:justify-end md:absolute md:top-2 md:right-0 space-x-3 mb-6 md:mb-0 z-20">
+        <button id="test-prev" class="p-3 rounded-full bg-white shadow-md text-[#27187E] hover:bg-neutral-50 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed border border-neutral-100" aria-label="Anterior">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <button id="test-next" class="p-3 rounded-full bg-white shadow-md text-[#27187E] hover:bg-neutral-50 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed border border-neutral-100" aria-label="Siguiente">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </button>
+      </div>
+
+      <div class="overflow-hidden relative px-2 py-4" id="test-container">
+        <div id="test-track" class="flex transition-transform duration-500 ease-out will-change-transform cursor-grab active:cursor-grabbing">
+          
+          <div class="flex-shrink-0 min-w-full md:min-w-[50%] lg:min-w-[33.3333%] px-3">
+            <div class="relative overflow-hidden rounded-2xl p-6 md:p-8 h-full bg-white border border-neutral-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div class="absolute -top-3 -left-3 opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="text-[#27187E]"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              </div>
+              <div class="relative z-10 flex flex-col h-full">
+                <p class="text-neutral-600 font-medium mb-6 leading-relaxed italic">
+                  "Desde que le doy Nexu-Nutri a mi perrito, su pelaje brilla como nunca y tiene mucha más energía. ¡100% recomendado!"
+                </p>
+                <div class="mt-auto pt-4 border-t border-neutral-100 flex items-center">
+                  <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200&auto=format&fit=crop" alt="Carlos M." class="w-12 h-12 rounded-full object-cover border-2 border-[#f7f7ff]">
+                  <div class="ml-4">
+                    <h4 class="font-bold text-[#1a1a1a]">Carlos Mendoza</h4>
+                    <p class="text-neutral-400 text-sm">@carlos_doglover</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-shrink-0 min-w-full md:min-w-[50%] lg:min-w-[33.3333%] px-3">
+            <div class="relative overflow-hidden rounded-2xl p-6 md:p-8 h-full bg-white border border-neutral-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div class="absolute -top-3 -left-3 opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="text-[#27187E]"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              </div>
+              <div class="relative z-10 flex flex-col h-full">
+                <p class="text-neutral-600 font-medium mb-6 leading-relaxed italic">
+                  "A mi perrita mestiza le costaba comer croquetas, pero este alimento le fascina. El servicio de entrega es de primera."
+                </p>
+                <div class="mt-auto pt-4 border-t border-neutral-100 flex items-center">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop" alt="Laura G." class="w-12 h-12 rounded-full object-cover border-2 border-[#f7f7ff]">
+                  <div class="ml-4">
+                    <h4 class="font-bold text-[#1a1a1a]">Laura Gómez</h4>
+                    <p class="text-neutral-400 text-sm">@laura_g</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-shrink-0 min-w-full md:min-w-[50%] lg:min-w-[33.3333%] px-3">
+            <div class="relative overflow-hidden rounded-2xl p-6 md:p-8 h-full bg-white border border-neutral-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div class="absolute -top-3 -left-3 opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="text-[#27187E]"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              </div>
+              <div class="relative z-10 flex flex-col h-full">
+                <p class="text-neutral-600 font-medium mb-6 leading-relaxed italic">
+                  "La calidad de los ingredientes es notoria. Me da mucha tranquilidad saber que mi mejor amigo come de forma tan balanceada."
+                </p>
+                <div class="mt-auto pt-4 border-t border-neutral-100 flex items-center">
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop" alt="Roberto C." class="w-12 h-12 rounded-full object-cover border-2 border-[#f7f7ff]">
+                  <div class="ml-4">
+                    <h4 class="font-bold text-[#1a1a1a]">Roberto Chen</h4>
+                    <p class="text-neutral-400 text-sm">@robert_vet</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-shrink-0 min-w-full md:min-w-[50%] lg:min-w-[33.3333%] px-3">
+            <div class="relative overflow-hidden rounded-2xl p-6 md:p-8 h-full bg-white border border-neutral-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div class="absolute -top-3 -left-3 opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="text-[#27187E]"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              </div>
+              <div class="relative z-10 flex flex-col h-full">
+                <p class="text-neutral-600 font-medium mb-6 leading-relaxed italic">
+                  "¡El combo Luna es una maravilla! Mi mestizo de 5 años parece un cachorro otra vez. Definitivamente me suscribo."
+                </p>
+                <div class="mt-auto pt-4 border-t border-neutral-100 flex items-center">
+                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=200&auto=format&fit=crop" alt="Valeria R." class="w-12 h-12 rounded-full object-cover border-2 border-[#f7f7ff]">
+                  <div class="ml-4">
+                    <h4 class="font-bold text-[#1a1a1a]">Valeria Ríos</h4>
+                    <p class="text-neutral-400 text-sm">@vale_r</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex-shrink-0 min-w-full md:min-w-[50%] lg:min-w-[33.3333%] px-3">
+            <div class="relative overflow-hidden rounded-2xl p-6 md:p-8 h-full bg-white border border-neutral-100 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div class="absolute -top-3 -left-3 opacity-10">
+                <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="currentColor" class="text-[#27187E]"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+              </div>
+              <div class="relative z-10 flex flex-col h-full">
+                <p class="text-neutral-600 font-medium mb-6 leading-relaxed italic">
+                  "Solucionó los problemas digestivos de mi Bulldog en cuestión de semanas. Excelente producto y gran atención."
+                </p>
+                <div class="mt-auto pt-4 border-t border-neutral-100 flex items-center">
+                  <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop" alt="Andrés S." class="w-12 h-12 rounded-full object-cover border-2 border-[#f7f7ff]">
+                  <div class="ml-4">
+                    <h4 class="font-bold text-[#1a1a1a]">Andrés Silva</h4>
+                    <p class="text-neutral-400 text-sm">@andres_bulldog</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="flex justify-center mt-8 gap-2" id="test-dots">
+      </div>
+
+      <div class="mt-12 text-center relative z-20 scroll-reveal">
+        <button id="btn-dejar-resena" class="inline-flex items-center gap-2 bg-[#27187E] text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-[#27187E]/30 hover:bg-[#1a0f5e] transition-all duration-300 hover:-translate-y-1">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Cuéntanos tu experiencia
+        </button>
+        <p class="text-neutral-500 text-sm mt-3 font-medium">
+          ¡Nos encanta leer sobre las aventuras de tu mejor amigo!
+        </p>
+      </div>
+    </div>
+  </section>
+	
+	
+	<!-- ========================================== -->
+  <!-- SECCIÓN SOCIOS Y EMBAJADORES (Carrusel 3D) -->
+  <!-- ========================================== -->
+  <section id="socios" class="py-24 px-4 bg-[#060507] relative overflow-hidden z-10">
+    <!-- Luces de fondo -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#27187E]/20 via-[#060507] to-[#060507] pointer-events-none"></div>
+
+    <div class="max-w-[1200px] mx-auto relative z-10">
+      
+      <!-- Encabezado -->
+      <div class="text-center mb-16 scroll-reveal">
+        <h2 class="text-3xl md:text-5xl font-black text-[#f7f7ff] tracking-tight uppercase">
+          Nuestros <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-[#27187E]">Socios</span>
+        </h2>
+        <p class="text-[#e1e1e1] mt-3 font-medium tracking-wide">
+          Respaldados por la excelencia internacional.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20 items-center">
+        
+        <!-- Contenedor de Imágenes 3D -->
+        <div class="relative w-full h-[350px] sm:h-[450px] socios-perspective" id="socios-img-container">
+          <!-- Las imágenes se inyectan con JS para controlar el 3D -->
+        </div>
+
+        <!-- Contenedor de Contenido (Textos y Botones) -->
+        <div class="flex flex-col justify-center">
+          
+          <div id="socios-content" class="min-h-[180px] transition-opacity duration-300">
+            <h3 id="socio-name" class="text-3xl sm:text-4xl font-black text-[#f7f7ff] mb-1 tracking-tight">Nombre</h3>
+            <p id="socio-desig" class="text-[#00A6FB] font-bold text-sm tracking-widest uppercase mb-6">Cargo</p>
+            <p id="socio-quote" class="text-[#f1f1f7] text-lg leading-relaxed italic border-l-4 border-[#27187E] pl-6">
+              "Cita"
+            </p>
+          </div>
+
+          <!-- Botones de Navegación -->
+          <div class="flex gap-4 mt-10">
+            <button id="socio-prev" class="w-12 h-12 rounded-full bg-[#141414] hover:bg-[#f7f7ff] hover:text-[#060507] text-[#f1f1f7] flex items-center justify-center transition-colors duration-300 border border-white/10" aria-label="Socio anterior">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button id="socio-next" class="w-12 h-12 rounded-full bg-[#141414] hover:bg-[#f7f7ff] hover:text-[#060507] text-[#f1f1f7] flex items-center justify-center transition-colors duration-300 border border-white/10" aria-label="Socio siguiente">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+	
+	<!-- ========================================== -->
+  <!-- SECCIÓN PREGUNTAS FRECUENTES (FAQ) -->
+  <!-- ========================================== -->
+  <section id="faq" class="py-24 px-4 bg-white relative z-10">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="text-center mb-16 scroll-reveal">
+        <span class="inline-block py-1.5 px-4 rounded-full bg-[#27187E]/10 text-[#27187E] font-bold text-xs sm:text-sm uppercase tracking-wider mb-3">
+          Dudas Resueltas
+        </span>
+        <h2 class="text-3xl md:text-5xl font-black text-[#1a1a1a] tracking-tight">
+          Preguntas <span class="text-[#27187E]">Frecuentes</span>
+        </h2>
+      </div>
+
+      <div class="space-y-4" id="faq-container">
+        
+        <!-- Pregunta 1 -->
+        <div class="faq-item bg-[#f7f7ff] border border-neutral-200 rounded-2xl overflow-hidden transition-all duration-300 scroll-reveal">
+          <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-[#1a1a1a] text-lg">¿A partir de qué edad pueden comer Nexu-Nutri?</span>
+            <svg class="faq-icon w-6 h-6 text-[#27187E] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-5 text-neutral-600 font-medium leading-relaxed">
+              Nuestros snacks están formulados para perritos a partir de los 3 meses de edad. Al ser 100% naturales y sin conservadores, son sumamente amigables con su sistema digestivo en desarrollo.
+            </div>
+          </div>
+        </div>
+
+        <!-- Pregunta 2 -->
+        <div class="faq-item bg-[#f7f7ff] border border-neutral-200 rounded-2xl overflow-hidden transition-all duration-300 scroll-reveal" data-delay="1">
+          <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-[#1a1a1a] text-lg">¿Cuánto cuesta el envío y a dónde entregan?</span>
+            <svg class="faq-icon w-6 h-6 text-[#27187E] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-5 text-neutral-600 font-medium leading-relaxed">
+              Hacemos envíos a toda la República Mexicana. El envío estándar tiene un costo de $49 MXN, pero si tu compra es mayor a $500 MXN, ¡el envío va completamente por nuestra cuenta!
+            </div>
+          </div>
+        </div>
+
+        <!-- Pregunta 3 -->
+        <div class="faq-item bg-[#f7f7ff] border border-neutral-200 rounded-2xl overflow-hidden transition-all duration-300 scroll-reveal" data-delay="2">
+          <button class="faq-btn w-full px-6 py-5 text-left flex justify-between items-center focus:outline-none">
+            <span class="font-bold text-[#1a1a1a] text-lg">¿Puedo usarlos si mi perro tiene alergias alimentarias?</span>
+            <svg class="faq-icon w-6 h-6 text-[#27187E] transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+            <div class="px-6 pb-5 text-neutral-600 font-medium leading-relaxed">
+              La mayoría de nuestros snacks son hipoalergénicos ya que usamos proteínas magras y evitamos granos comunes como el maíz o el trigo. Sin embargo, siempre recomendamos revisar la lista de ingredientes específicos de cada kit y consultar con tu veterinario de confianza.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  
+  <!-- ========================================== -->
+  <!-- FOOTER / PIE DE PÁGINA -->
+  <!-- ========================================== -->
+  <footer class="bg-[#150d45] text-white relative w-full pt-20 pb-10 overflow-hidden z-10">
+    <div class="pointer-events-none absolute top-0 left-0 z-0 h-full w-full overflow-hidden">
+      <div class="bg-[#27187E] absolute top-10 left-1/4 h-64 w-64 rounded-full opacity-30 blur-[100px]"></div>
+      <div class="bg-[#3521a3] absolute right-10 bottom-10 h-80 w-80 rounded-full opacity-20 blur-[100px]"></div>
+    </div>
+
+    <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      
+      <!-- CAJA DE NEWSLETTER (Suscripción) -->
+      <div class="bg-white/5 border border-white/10 backdrop-blur-md mb-16 rounded-3xl p-8 md:p-12 shadow-2xl scroll-reveal">
+        <div class="grid items-center gap-8 md:grid-cols-2">
+          <div>
+            <h3 class="mb-4 text-2xl font-black md:text-3xl tracking-tight text-white">
+              Únete a la familia Nexu-Nutri
+            </h3>
+            <p class="text-indigo-200 mb-6 font-medium">
+              Recibe consejos de nutrición y ofertas exclusivas para darle la mejor vida a tu mejor amigo.
+            </p>
+            <form class="flex flex-col gap-3 sm:flex-row" onsubmit="event.preventDefault(); alert('¡Gracias por suscribirte!');">
+              <input
+                type="email"
+                required
+                placeholder="Ingresa tu correo electrónico"
+                class="bg-white/10 text-white placeholder-indigo-300/50 border border-white/20 focus:border-white rounded-xl px-5 py-3.5 focus:ring-2 focus:ring-white/20 focus:outline-none transition-all w-full"
+              />
+              <button type="submit" class="bg-white text-[#27187E] hover:bg-neutral-100 rounded-xl px-8 py-3.5 font-black shadow-lg transition-all duration-300 hover:-translate-y-1 whitespace-nowrap">
+                Suscribirme
+              </button>
+            </form>
+          </div>
+          
+          <div class="hidden justify-end md:flex relative">
+            <div class="absolute inset-0 bg-[#27187E]/40 rotate-6 rounded-2xl transform scale-105"></div>
+            <img src="images/nexuscito.png" alt="Gael" class="relative w-80 h-56 rounded-2xl object-cover shadow-xl">
+          </div>
+        </div>
+      </div>
+
+      <!-- ENLACES DEL FOOTER -->
+      <div class="mb-16 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-5 scroll-reveal">
+        
+        <div class="lg:col-span-2">
+          <div class="mb-6 flex items-center space-x-3">
+            <!-- Cuadro blanco con TU LOGO en lugar de las huellas -->
+            <div class="bg-white flex h-14 w-14 items-center justify-center rounded-xl shadow-lg p-1.5">
+              <img src="images/mi_logo.png" alt="Nexu-Nutri Logo" class="w-full h-full object-contain" />
+            </div>
+            <span class="text-2xl font-black tracking-tight">NEXU-NUTRI</span>
+          </div>
+          <p class="text-indigo-200/80 mb-8 max-w-sm leading-relaxed">
+            Snacks artesanales elaborados con ingredientes 100% naturales. Elevando la nutrición canina, un premio a la vez.
+          </p>
+          <div class="flex space-x-4">
+            <a href="https://www.facebook.com/iFlAC.Nexus.Gamer.Pro.papus/" class="bg-white/5 hover:bg-[#27187E] border border-white/10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/nxs.gaeel/" class="bg-white/5 hover:bg-[#27187E] border border-white/10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/@papinexuscr7" class="bg-white/5 hover:bg-[#27187E] border border-white/10 flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:-translate-y-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+
+          </div>
+        </div>
+
+        <div>
+          <h4 class="mb-5 text-lg font-bold text-white">Descubre</h4>
+          <ul class="space-y-3">
+            <li><a href="#comprar" class="text-indigo-200/80 hover:text-white transition-colors">Nuestros Productos</a></li>
+            <li><a href="#ingredientes" class="text-indigo-200/80 hover:text-white transition-colors">Ingredientes Naturales</a></li>
+            <li><a href="#testimonios" class="text-indigo-200/80 hover:text-white transition-colors">Casos de Éxito</a></li>
+			  <li><button id="btn-abrir-vet" class="text-indigo-200/80 hover:text-white transition-colors text-left w-full">Veterinarios</button></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="mb-5 text-lg font-bold text-white">Legal</h4>
+          <ul class="space-y-3">
+            <li><a href="#" class="text-indigo-200/80 hover:text-white transition-colors">Términos de Servicio</a></li>
+            <li><a href="#" class="text-indigo-200/80 hover:text-white transition-colors">Política de Privacidad</a></li>
+            <li><a href="#" class="text-indigo-200/80 hover:text-white transition-colors">Políticas de Envío</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="mb-5 text-lg font-bold text-white">Contacto</h4>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3 text-indigo-200/80">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              <span>nexu-nutri@canino.mx</span>
+            </li>
+            <li class="flex items-start gap-3 text-indigo-200/80">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <span>+52 55 1234 5678</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-white/10 pt-8 flex flex-col items-center justify-between md:flex-row">
+        <p class="text-indigo-200/60 mb-4 text-sm md:mb-0">
+          &copy; 2026 Nexu-Nutri. Todos los derechos reservados.
+        </p>
+        <p class="text-indigo-200/60 text-sm">
+          Hecho con <span class="text-red-500">♥</span> para los mejores amigos del hombre.
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- SISTEMA E-COMMERCE (CARRITO, PAGO Y PERFIL) -->
+  <!-- ========================================== -->
+
+  <!-- 1. SIDEBAR DEL CARRITO -->
+  <div id="modal-carrito-side" class="fixed inset-0 z-[110] hidden justify-end">
+    <div id="carrito-bg" class="absolute inset-0 bg-[#150d45]/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+    <div id="carrito-panel" class="relative w-full max-w-md bg-white h-full shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300 ease-in-out">
+      
+      <div class="p-6 border-b border-neutral-100 flex justify-between items-center bg-[#f7f7ff]">
+        <h3 class="text-xl font-black text-[#27187E] flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          Tu Carrito
+        </h3>
+        <button id="btn-cerrar-carrito" class="text-neutral-400 hover:text-red-500 transition"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6">
+        <ul id="lista-carrito" class="space-y-4"></ul>
+        <div id="carrito-vacio" class="text-center text-neutral-400 mt-10">
+          Tu carrito está vacío. ¡Agrega deliciosos snacks!
+        </div>
+      </div>
+
+      <div class="p-6 border-t border-neutral-100 bg-white">
+        <div class="flex justify-between items-center mb-4 text-lg font-bold text-[#1a1a1a]">
+          <span>Total a pagar:</span>
+          <span class="text-[#27187E] text-2xl">$<span id="carrito-total">0</span> MXN</span>
+        </div>
+        <button id="btn-ir-pagar" class="w-full bg-[#27187E] text-white font-bold py-4 rounded-xl hover:bg-[#1a0f5e] shadow-lg transition-all hidden">Proceder al Pago</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. MODAL DE PAGO -->
+  <div id="modal-checkout" class="fixed inset-0 z-[120] hidden items-center justify-center px-4">
+    <div id="checkout-bg" class="absolute inset-0 bg-[#150d45]/80 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
+    <div id="checkout-content" class="relative bg-white w-full max-w-md rounded-3xl p-8 shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      <button id="btn-cerrar-checkout" class="absolute top-5 right-5 text-neutral-400 hover:text-red-500"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+      
+      <h3 class="text-2xl font-black text-[#27187E] mb-1">Pago Seguro</h3>
+      <p class="text-neutral-500 text-sm mb-6">Ingresa los datos de tu tarjeta.</p>
+      
+      <form id="form-pago" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-neutral-500 mb-1">NÚMERO DE TARJETA</label>
+          <input type="text" placeholder="0000 0000 0000 0000" required maxlength="19" class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:border-[#27187E] focus:ring-2 focus:ring-[#27187E]/20 outline-none">
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-neutral-500 mb-1">VENCIMIENTO</label>
+            <input type="text" placeholder="MM/AA" required maxlength="5" class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:border-[#27187E] focus:ring-2 focus:ring-[#27187E]/20 outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-neutral-500 mb-1">CVC</label>
+            <input type="text" placeholder="123" required maxlength="3" class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:border-[#27187E] focus:ring-2 focus:ring-[#27187E]/20 outline-none">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-neutral-500 mb-1">TITULAR DE LA TARJETA</label>
+          <input type="text" value="Gael Garcia Lujano" readonly class="w-full px-4 py-3 rounded-xl bg-neutral-50 border border-neutral-200 text-neutral-500 outline-none cursor-not-allowed">
+        </div>
+        
+        <button type="submit" id="btn-procesar-pago" class="w-full bg-[#27187E] text-white font-black py-4 rounded-xl hover:bg-[#1a0f5e] shadow-lg transition-all mt-4 flex justify-center items-center gap-2">
+          Pagar $<span id="checkout-total">0</span> MXN
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- 3. MODAL DE MI PERFIL (Editable) -->
+  <!-- ========================================== -->
+  <div id="modal-perfil-usuario" class="fixed inset-0 z-[120] hidden items-center justify-center px-4">
+    <div id="perfil-bg" class="absolute inset-0 bg-[#150d45]/70 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
+    <div id="perfil-content" class="relative bg-[#f7f7ff] w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      
+      <!-- Cabecera del perfil -->
+      <div class="bg-[#27187E] p-8 text-center relative">
+        <button id="btn-cerrar-perfil" class="absolute top-5 right-5 text-white/50 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        
+        <!-- Contenedor del Avatar Editable -->
+        <div class="relative w-28 h-28 bg-neutral-200 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white shadow-lg text-4xl group">
+            
+            <!-- Contenedor interno de la foto o el icono -->
+            <div id="profile-avatar-content" class="w-full h-full flex items-center justify-center overflow-hidden rounded-full">
+                <!-- Icono de marcador de posición genérico (simulación de WhatsApp) -->
+                👤
+            </div>
+            
+            <!-- Botón de edición del lápiz (Oculto por defecto, aparece al hacer hover) -->
+            <button id="btn-edit-photo" class="absolute bottom-0 right-0 bg-[#27187E] text-white p-2 rounded-full shadow-md hover:bg-[#1a0f5e] transition opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            </button>
+            
+            <!-- Input oculto para subir el archivo -->
+            <input type="file" id="file-upload" class="hidden" accept="image/*">
+        </div>
+        
+        <!-- Nombre de Usuario Dinámico -->
+        <h2 id="profile-name-text" class="text-3xl font-black text-white">Usuario</h2>
+        <p class="text-indigo-200">Cliente Premium Nexu-Nutri</p>
+      </div>
+
+      <!-- Historial de pedidos -->
+      <div class="p-8">
+        <h3 class="text-xl font-bold text-[#1a1a1a] mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" class="text-[#27187E]"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          Historial de Pedidos
+        </h3>
+        
+        <div class="bg-white rounded-2xl border border-neutral-100 p-1 min-h-[150px] max-h-[300px] overflow-y-auto">
+          <ul id="lista-pedidos-pagados" class="divide-y divide-neutral-100"></ul>
+          <div id="perfil-sin-pedidos" class="text-center text-neutral-400 py-10">
+            Aún no has realizado ninguna compra.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL DE INICIAR SESIÓN -->
+  <!-- ========================================== -->
+  <div id="modal-login-container" class="fixed inset-0 z-[100] hidden items-center justify-center px-4">
+    <div id="modal-login-bg" class="absolute inset-0 bg-[#150d45]/70 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
+    <div id="modal-login-content" class="relative bg-white rounded-3xl p-8 w-full max-w-sm shadow-2xl transform scale-95 opacity-0 transition-all duration-300 text-center">
+      <button id="btn-cerrar-login" class="absolute top-4 right-4 text-neutral-400 hover:text-[#27187E] transition-colors p-1" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div class="bg-white border border-neutral-100 shadow-md w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 p-3">
+        <img src="images/mi_logo.png" alt="Nexu-Nutri Logo" class="w-full h-full object-contain" />
+      </div>
+      <h3 class="text-2xl font-black text-[#27187E] mb-2 tracking-tight">Bienvenido</h3>
+      <p class="text-neutral-500 text-sm mb-8">Inicia sesión para adquierir tus productos.</p>
+
+      <button id="btn-google-login" class="w-full flex items-center justify-center gap-3 bg-white border border-neutral-200 text-neutral-700 font-bold py-3.5 px-4 rounded-xl hover:bg-neutral-50 hover:shadow-md transition-all duration-300">
+        <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Continuar con Google
+      </button>
+      
+      <div class="mt-5 text-sm font-medium text-neutral-400">
+        ¿No tienes cuenta? <a href="#" class="text-[#27187E] hover:underline">Regístrate</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL PARA ESCRIBIR RESEÑA -->
+  <!-- ========================================== -->
+  <div id="modal-resena" class="fixed inset-0 z-[100] hidden items-center justify-center px-4">
+    <div id="modal-bg" class="absolute inset-0 bg-[#150d45]/60 backdrop-blur-sm opacity-0 transition-opacity duration-300"></div>
+    <div id="modal-content" class="relative bg-white rounded-3xl p-8 w-full max-w-lg shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      <button id="btn-cerrar-modal" class="absolute top-5 right-5 text-neutral-400 hover:text-[#27187E] transition-colors p-1" aria-label="Cerrar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+
+      <div id="form-estado">
+        <div class="flex items-center gap-3 mb-2">
+          <span class="bg-[#27187E]/10 text-[#27187E] p-2 rounded-xl">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </span>
+          <h3 class="text-2xl font-black text-[#27187E]">Tu experiencia</h3>
+        </div>
+        <p class="text-neutral-500 text-sm mb-6">Tu opinión nos ayuda a mejorar y guía a otros dueños de mascotas.</p>
+        
+        <form id="form-escribir-resena" class="space-y-4">
+          <div>
+            <label class="block text-sm font-bold text-neutral-700 mb-1">Nombre de tu perrito y el tuyo</label>
+            <input type="text" required placeholder="Ej. Luna & Carlos" class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:border-[#27187E] focus:ring-2 focus:ring-[#27187E]/20 outline-none transition-all text-neutral-700">
+          </div>
+          <div>
+            <label class="block text-sm font-bold text-neutral-700 mb-1">¿Qué le pareció Nexu-Nutri?</label>
+            <textarea required rows="4" placeholder="Escribe aquí tu testimonio..." class="w-full px-4 py-3 rounded-xl border border-neutral-200 focus:border-[#27187E] focus:ring-2 focus:ring-[#27187E]/20 outline-none transition-all resize-none text-neutral-700"></textarea>
+          </div>
+          
+          <button type="submit" class="w-full bg-[#27187E] text-white font-bold py-3.5 rounded-xl hover:bg-[#1a0f5e] transition-all duration-300 shadow-lg shadow-[#27187E]/30 mt-2 flex justify-center items-center gap-2">
+            Enviar Comentario
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+          </button>
+        </form>
+      </div>
+
+      <div id="exito-estado" class="hidden flex-col items-center justify-center text-center py-8">
+        <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center text-green-500 mb-5 animate-[pulse_2s_ease-in-out_infinite]">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h3 class="text-3xl font-black text-[#27187E] mb-2 tracking-tight">¡Mensaje Enviado!</h3>
+        <p class="text-neutral-500 text-lg">Muchas gracias por compartir el amor por tu mascota con la comunidad.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MENÚ FLOTANTE DE USUARIO -->
+  <!-- ========================================== -->
+  <div class="fixed bottom-8 right-8 z-[90]">
+    <div id="fab-menu" class="absolute bottom-16 right-0 flex flex-col items-end gap-3 opacity-0 translate-y-4 pointer-events-none transition-all duration-300 ease-out origin-bottom-right">
+      <button id="btn-perfil" class="flex items-center justify-center gap-2 bg-white/90 backdrop-blur-sm text-[#27187E] border border-white/20 shadow-xl px-6 py-3 rounded-xl font-bold hover:bg-white hover:scale-105 transition-all whitespace-nowrap shrink-0 hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        Mi Perfil
+      </button>
+
+      <button id="btn-login" class="flex items-center justify-center gap-2 bg-white/90 backdrop-blur-sm text-[#27187E] border border-white/20 shadow-xl px-6 py-3 rounded-xl font-bold hover:bg-white hover:scale-105 transition-all whitespace-nowrap shrink-0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path><polyline points="10 17 15 12 10 7"></polyline><line x1="15" y1="12" x2="3" y2="12"></line></svg>
+        Iniciar Sesión
+      </button>
+
+      <button id="btn-logout" class="flex items-center justify-center gap-2 bg-red-50/90 backdrop-blur-sm text-red-600 border border-red-100 shadow-xl px-6 py-3 rounded-xl font-bold hover:bg-red-100 hover:scale-105 transition-all whitespace-nowrap shrink-0 hidden">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+        Cerrar Sesión
+      </button>
+    </div>
+
+    <button id="fab-button" class="relative w-14 h-14 rounded-full bg-[#27187E] text-white shadow-[0_0_20px_rgba(39,24,126,0.4)] flex items-center justify-center hover:bg-[#1a0f5e] hover:scale-110 transition-all duration-300 z-10">
+      <svg id="fab-icon" xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-300 ease-in-out"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+    </button>
+  </div>
+  
+  <!-- ========================================== -->
+  <!-- NOTIFICACIÓN FLOTANTE (TOAST) -->
+  <!-- ========================================== -->
+  <div id="toast-notification" class="fixed top-5 right-5 z-[120] transform transition-all duration-500 translate-x-[150%] opacity-0 pointer-events-none">
+    <div class="bg-white border-l-4 border-[#27187E] shadow-2xl rounded-xl p-4 flex items-center gap-4 w-max max-w-sm">
+      <div class="bg-[#27187E]/10 p-2 rounded-full text-[#27187E]">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+      </div>
+      <div>
+        <h4 id="toast-title" class="font-black text-[#1a1a1a] text-sm tracking-tight">Éxito</h4>
+        <p id="toast-message" class="text-neutral-500 text-xs font-medium mt-0.5">Acción completada</p>
+      </div>
+    </div>
+  </div>
+	
+	<!-- ========================================== -->
+  <!-- MODAL DE VETERINARIOS (Dr. Santiago) -->
+  <!-- ========================================== -->
+  <div id="modal-veterinarios" class="fixed inset-0 z-[130] hidden items-center justify-center px-4">
+    <!-- Fondo oscuro -->
+    <div id="vet-bg" class="absolute inset-0 bg-[#150d45]/80 backdrop-blur-md opacity-0 transition-opacity duration-300 cursor-pointer"></div>
+    
+    <!-- Contenedor de la Tarjeta -->
+    <div id="vet-content" class="relative bg-white w-full max-w-md rounded-[2rem] overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300">
+      
+      <!-- Botón de Cerrar Flotante -->
+      <button id="btn-cerrar-vet" class="absolute top-4 right-4 text-white/70 hover:text-white z-20 bg-black/20 hover:bg-black/40 p-2 rounded-full backdrop-blur-sm transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+      
+      <!-- Encabezado de la Tarjeta (Azul) -->
+      <div class="bg-gradient-to-br from-[#27187E] to-[#1a0f5e] pt-12 pb-8 px-6 text-center relative overflow-hidden border-b-4 border-[#00A6FB]">
+        <!-- Círculo de luz decorativo de fondo -->
+        <div class="absolute -top-10 -left-10 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+        
+        <!-- Foto de Santiago -->
+        <div class="w-32 h-32 mx-auto rounded-full border-4 border-white shadow-xl overflow-hidden mb-4 bg-white relative z-10">
+          <!-- ¡Asegúrate de poner su foto en la carpeta y llamarla santiago.jpg! -->
+          <img src="images/veterinario.png" alt="Dr. Santiago Loaiza" class="w-full h-full object-cover">
+        </div>
+        
+        <h3 class="text-2xl font-black text-white mb-1 tracking-tight">Dr. Santiago Loaiza</h3>
+        <p class="text-indigo-200 text-sm font-medium tracking-wide">Estudiante de Medicina Veterinaria (UNAM)</p>
+      </div>
+      
+      <!-- Cuerpo del Mensaje -->
+      <div class="p-8 text-center bg-[#f7f7ff]">
+        
+        <!-- Icono de comillas -->
+        <div class="text-[#00A6FB] flex justify-center mb-4 opacity-50">
+          <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+        </div>
+        
+        <p class="text-neutral-700 italic leading-relaxed mb-6 font-medium">
+          "Como futuro profesional de la salud animal, reviso cuidadosamente lo que consumen nuestras mascotas. Recomiendo ampliamente los snacks de Nexu-Nutri; sus ingredientes 100% naturales y su balance nutricional cumplen con los estándares que nuestros mejores amigos necesitan para una vida larga y saludable."
+        </p>
+        
+        <!-- Sello de recomendación -->
+        <div class="inline-flex items-center gap-2 bg-green-100/80 text-green-700 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider border border-green-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          Recomendado por Especialistas
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    // -------------------------------------------------------------------
+    // 1. Efecto Máquina de Escribir
+    // -------------------------------------------------------------------
+    const textToType = "Snacks artesanales elaborados con ingredientes 100% naturales. Para razas pequeñas.";
+    const typewriterElement = document.getElementById('typewriter-text');
+    let typeIndex = 0;
+
+    function typeWriter() {
+      if (typeIndex < textToType.length) {
+        typewriterElement.innerHTML = textToType.substring(0, typeIndex + 1) + '<span class="cursor-blink"></span>';
+        typeIndex++;
+        setTimeout(typeWriter, 50);
+      } else {
+        typewriterElement.innerHTML = textToType; 
+      }
+    }
+    window.addEventListener('load', () => { setTimeout(typeWriter, 400); });
+
+    // -------------------------------------------------------------------
+    // 2. Búsqueda Inteligente (Versión a prueba de fallos)
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const barraBusqueda = document.getElementById('searchInput');
+      
+      if (barraBusqueda) {
+        barraBusqueda.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') {
+            event.preventDefault();
+            const term = barraBusqueda.value.toLowerCase().trim();
+            let targetId = null;
+
+            if (term.includes('socio') || term.includes('cristiano') || term.includes('dasha') || term.includes('jordan') || term.includes('embajador')) {
+              targetId = '#socios';
+            } 
+            else if (term.includes('snack') || term.includes('producto') || term.includes('comprar') || term.includes('kit') || term.includes('precio') || term.includes('luna') || term.includes('nexus')) {
+              targetId = '#comprar'; 
+            } 
+            else if (term.includes('testimonio') || term.includes('reseña') || term.includes('opinion')) {
+              targetId = '#testimonios';
+            } 
+            else if (term.includes('ingrediente') || term.includes('pollo') || term.includes('camote') || term.includes('salmon')) {
+              targetId = '#ingredientes';
+            } 
+            else if (term.includes('historia') || term.includes('nosotros') || term.includes('mision') || term.includes('meta')) {
+              targetId = '#sobre-nosotros';
+            } 
+            else if (term.includes('galeria') || term.includes('comunidad') || term.includes('foto')) {
+              targetId = '#galeria';
+            }
+
+            if (targetId) {
+              const targetElement = document.querySelector(targetId);
+              if(targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            } else if (term !== '') {
+              alert(`No encontramos resultados para "${term}". Intenta buscar "snacks", "socios", "historia" o "ingredientes".`);
+            }
+            
+            barraBusqueda.value = ''; 
+            barraBusqueda.blur(); 
+          }
+        });
+      }
+    });
+
+    // -------------------------------------------------------------------
+    // 3. Efecto Fade-Out Global
+    // -------------------------------------------------------------------
+    const heroContent = document.getElementById('hero-fade-content');
+    window.addEventListener('scroll', () => {
+      const scrollPos = window.scrollY;
+      const opacity = Math.max(0, 1 - (scrollPos / 600));
+      if(heroContent) {
+        heroContent.style.opacity = opacity;
+        heroContent.style.transform = `translateY(${scrollPos * 0.35}px)`;
+        heroContent.style.pointerEvents = opacity <= 0 ? 'none' : 'auto';
+      }
+    });
+
+    // -------------------------------------------------------------------
+    // 4. Lógica del Componente CARD STACK 3D
+    // -------------------------------------------------------------------
+    const cardData = [
+      { id: 1, title: "Snack Raza Pequeña", desc: "Pequeños, bajos en calorías y súper sabrosos.", img: "images/producto_luna.png" },
+      { id: 2, title: "Snacks razas medianas", desc: "El premio perfecto para ocasiones muy especiales.", img: "images/producto_nexus.png" },
+      { id: 3, title: "Snacks razas grandes", desc: "Limpieza profunda para sus dientes mientras se divierte.", img: "images/producto_topanga.png" },
+      { id: 4, title: "Snacks razas pequeñas", desc: "Pequeños, bajos en calorías y súper sabrosos.", img: "images/producto_luna.png" },
+      { id: 5, title: "Snacks razas medianas", desc: "El premio perfecto para ocasiones muy especiales.", img: "images/producto_nexus.png" }
+    ];
+
+    const renderZone = document.getElementById('cards-render-zone');
+    const dotsContainer = document.getElementById('card-dots');
+    const container = document.getElementById('card-stack-container');
+    
+    let activeIndex = 0;
+    const itemsLen = cardData.length;
+    const maxVisible = 5;
+    const maxOffset = Math.floor(maxVisible / 2);
+    
+    const overlap = 0.48;
+    const spreadDeg = window.innerWidth < 640 ? 30 : 48;
+    const depthPx = 140;
+    const tiltXDeg = 12;
+
+    let autoPlayInterval;
+    let isHovering = false;
+
+    function initCards() {
+      if(!renderZone || !dotsContainer) return;
+      renderZone.innerHTML = '';
+      dotsContainer.innerHTML = '';
+
+      cardData.forEach((item, i) => {
+        const card = document.createElement('div');
+        card.className = 'card-wrapper bg-white cursor-pointer';
+        card.dataset.index = i;
+        card.innerHTML = `
+          <div class="card-inner">
+            <img src="${item.img}" alt="${item.title}" class="absolute inset-0 w-full h-full object-cover pointer-events-none" draggable="false">
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+            <div class="relative z-10 flex h-full flex-col justify-end p-5">
+              <h3 class="truncate text-xl font-bold text-white">${item.title}</h3>
+              <p class="mt-1 line-clamp-2 text-sm text-white/80">${item.desc}</p>
+            </div>
+          </div>
+        `;
+        
+        card.addEventListener('click', () => {
+          if (activeIndex !== i) setActiveIndex(i);
+        });
+
+        renderZone.appendChild(card);
+
+        const dot = document.createElement('button');
+        dot.className = 'w-2.5 h-2.5 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#27187E] focus:ring-offset-2';
+        dot.ariaLabel = `Ir a ${item.title}`;
+        dot.addEventListener('click', () => setActiveIndex(i));
+        dotsContainer.appendChild(dot);
+      });
+
+      updateStack();
+      startAutoPlay();
+    }
+
+    function wrapIndex(n, len) {
+      if (len <= 0) return 0;
+      return ((n % len) + len) % len;
+    }
+
+    function setActiveIndex(newIndex) {
+      activeIndex = wrapIndex(newIndex, itemsLen);
+      updateStack();
+      resetAutoPlay();
+    }
+
+    function nextCard() { setActiveIndex(activeIndex + 1); }
+    function prevCard() { setActiveIndex(activeIndex - 1); }
+
+    function updateStack() {
+      const cards = document.querySelectorAll('.card-wrapper');
+      const dots = dotsContainer ? dotsContainer.children : [];
+      
+      const cardWidth = window.innerWidth < 640 ? 320 : 520;
+      const cardSpacing = Math.max(10, Math.round(cardWidth * (1 - overlap)));
+      const stepDeg = maxOffset > 0 ? spreadDeg / maxOffset : 0;
+
+      cards.forEach((card, i) => {
+        let rawOff = i - activeIndex;
+        let altOff = rawOff > 0 ? rawOff - itemsLen : rawOff + itemsLen;
+        let off = Math.abs(altOff) < Math.abs(rawOff) ? altOff : rawOff;
+        
+        const abs = Math.abs(off);
+        const visible = abs <= maxOffset;
+
+        if (!visible) {
+          card.style.opacity = '0';
+          card.style.pointerEvents = 'none';
+          return;
+        }
+
+        const rotateZ = off * stepDeg;
+        const x = off * cardSpacing;
+        const y = abs * 10; 
+        const z = -abs * depthPx;
+
+        const isActive = off === 0;
+        const scale = isActive ? 1.03 : 0.94;
+        const lift = isActive ? -22 : 0;
+        const rotateX = isActive ? 0 : tiltXDeg;
+        const zIndex = 100 - abs;
+
+        card.style.opacity = '1';
+        card.style.pointerEvents = 'auto';
+        card.style.zIndex = zIndex;
+        card.style.transform = `translateX(${x}px) translateY(${y + lift}px) translateZ(${z}px) rotateX(${rotateX}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
+
+        if (isActive) {
+          card.classList.add('cursor-grab');
+          card.classList.remove('cursor-pointer');
+        } else {
+          card.classList.remove('cursor-grab', 'cursor-grabbing');
+          card.classList.add('cursor-pointer');
+        }
+      });
+
+      Array.from(dots).forEach((dot, i) => {
+        if (i === activeIndex) {
+          dot.style.backgroundColor = '#27187E';
+        } else {
+          dot.style.backgroundColor = '#cbd5e1'; 
+        }
+      });
+    }
+
+    let startX = 0;
+    let isDragging = false;
+
+    function handleDragStart(e) {
+      isDragging = true;
+      startX = e.type.includes('mouse') ? e.pageX : e.touches[0].pageX;
+      const activeCard = document.querySelector('.card-wrapper.cursor-grab');
+      if(activeCard) activeCard.classList.add('cursor-grabbing');
+      pauseAutoPlay();
+    }
+
+    function handleDragEnd(e) {
+      if (!isDragging) return;
+      isDragging = false;
+      const endX = e.type.includes('mouse') ? e.pageX : e.changedTouches[0].pageX;
+      const diffX = endX - startX;
+      
+      const threshold = 50; 
+      if (diffX > threshold) prevCard();
+      else if (diffX < -threshold) nextCard();
+
+      const activeCard = document.querySelector('.card-wrapper.cursor-grab');
+      if(activeCard) activeCard.classList.remove('cursor-grabbing');
+      startAutoPlay();
+    }
+
+    if(container) {
+      container.addEventListener('mousedown', handleDragStart);
+      window.addEventListener('mouseup', handleDragEnd);
+      container.addEventListener('touchstart', handleDragStart, {passive: true});
+      window.addEventListener('touchend', handleDragEnd);
+      container.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') prevCard();
+        if (e.key === 'ArrowRight') nextCard();
+      });
+      container.addEventListener('mouseenter', () => { isHovering = true; });
+      container.addEventListener('mouseleave', () => { isHovering = false; });
+    }
+
+    function startAutoPlay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+      autoPlayInterval = setInterval(() => {
+        if (!isHovering) nextCard();
+      }, 3000);
+    }
+    function pauseAutoPlay() { clearInterval(autoPlayInterval); }
+    function resetAutoPlay() {
+      pauseAutoPlay();
+      startAutoPlay();
+    }
+
+    window.addEventListener('resize', () => { updateStack(); });
+    document.addEventListener('DOMContentLoaded', initCards);
+    
+    // -------------------------------------------------------------------
+    // 6. Efecto Parallax 3D para el Empaque
+    // -------------------------------------------------------------------
+    const tiltContainer = document.getElementById('tilt-container');
+    const tiltImage = document.getElementById('tilt-image');
+
+    if (tiltContainer && tiltImage) {
+      tiltContainer.addEventListener('mousemove', (e) => {
+        const rect = tiltContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left; 
+        const y = e.clientY - rect.top;  
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -20;
+        const rotateY = ((x - centerX) / centerX) * 20;
+
+        tiltImage.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+      });
+
+      tiltContainer.addEventListener('mouseleave', () => {
+        tiltImage.style.transform = `rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        tiltImage.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      });
+
+      tiltContainer.addEventListener('mouseenter', () => {
+        tiltImage.style.transition = 'transform 0.1s ease-out';
+      });
+    }
+    
+    // -------------------------------------------------------------------
+    // 7. Lógica del Carrusel de Modelos Estrellas
+    // -------------------------------------------------------------------
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
+    const carouselDots = document.querySelectorAll('.carousel-dot');
+    
+    if(track && prevBtn && nextBtn) {
+      let currentSlide = 0;
+      const totalSlides = 3;
+
+      function updateCarousel() {
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        prevBtn.disabled = currentSlide === 0;
+        nextBtn.disabled = currentSlide === totalSlides - 1;
+
+        carouselDots.forEach((dot, index) => {
+          if(index === currentSlide) {
+            dot.classList.replace('bg-white/50', 'bg-white');
+            dot.classList.add('w-6'); 
+          } else {
+            dot.classList.replace('bg-white', 'bg-white/50');
+            dot.classList.remove('w-6');
+          }
+        });
+      }
+
+      prevBtn.addEventListener('click', () => {
+        if (currentSlide > 0) { currentSlide--; updateCarousel(); }
+      });
+
+      nextBtn.addEventListener('click', () => {
+        if (currentSlide < totalSlides - 1) { currentSlide++; updateCarousel(); }
+      });
+
+      carouselDots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          currentSlide = parseInt(e.target.dataset.index);
+          updateCarousel();
+        });
+      });
+
+      updateCarousel();
+    }
+    
+    // -------------------------------------------------------------------
+    // 8. Efecto Scroll Reveal (Apariciones Mágicas)
+    // -------------------------------------------------------------------
+    const revealElements = document.querySelectorAll('.scroll-reveal');
+    const revealOptions = { threshold: 0.2, rootMargin: "0px 0px -50px 0px" };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return; 
+
+        const el = entry.target;
+        let delay = 0;
+        
+        if (el.classList.contains('text-reveal')) {
+          delay = 0;
+        } else if (el.classList.contains('image-reveal')) {
+          delay = 300; 
+        } else if (el.classList.contains('card-reveal')) {
+          const order = parseInt(el.getAttribute('data-delay')) || 1;
+          delay = 400 + (order * 150); 
+        }
+
+        setTimeout(() => { el.classList.add('is-visible'); }, delay);
+        observer.unobserve(el);
+      });
+    }, revealOptions);
+
+    revealElements.forEach(el => revealObserver.observe(el));
+    
+    // -------------------------------------------------------------------
+    // 9. Animación de Contador de Estadísticas
+    // -------------------------------------------------------------------
+    const statsContainer = document.getElementById('stats-container');
+    if (statsContainer) {
+      const statsObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counters = document.querySelectorAll('.counter');
+            const animationDuration = 2000; 
+
+            counters.forEach(counter => {
+              const target = +counter.getAttribute('data-target');
+              const startTime = performance.now();
+
+              const updateCount = (currentTime) => {
+                const elapsedTime = currentTime - startTime;
+                const progress = Math.min(elapsedTime / animationDuration, 1);
+                const easeOut = progress * (2 - progress); 
+                
+                counter.innerText = Math.floor(target * easeOut);
+
+                if (progress < 1) requestAnimationFrame(updateCount);
+                else counter.innerText = target;
+              };
+              requestAnimationFrame(updateCount);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 }); 
+      statsObserver.observe(statsContainer);
+    }
+    
+    // -------------------------------------------------------------------
+    // 10. Carrusel de Testimonios (Drag & Swipe)
+    // -------------------------------------------------------------------
+    const testTrack = document.getElementById('test-track');
+    const testPrev = document.getElementById('test-prev');
+    const testNext = document.getElementById('test-next');
+    const testDotsContainer = document.getElementById('test-dots');
+
+    if (testTrack) {
+      const cardsArray = Array.from(testTrack.children);
+      for (let i = cardsArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [cardsArray[i], cardsArray[j]] = [cardsArray[j], cardsArray[i]];
+      }
+      cardsArray.forEach(card => testTrack.appendChild(card));
+
+      const cards = testTrack.children;
+      const totalCards = cards.length;
+      let testIndex = 0;
+      let visibleCards = getVisibleCount();
+      let testAutoPlayInterval;
+
+      function getVisibleCount() {
+        if (window.innerWidth >= 1024) return 3; 
+        if (window.innerWidth >= 768) return 2;  
+        return 1;                                
+      }
+
+      function renderDots() {
+        testDotsContainer.innerHTML = '';
+        const maxDots = totalCards - visibleCards + 1;
+        for (let i = 0; i < maxDots; i++) {
+          const dot = document.createElement('button');
+          dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === testIndex ? 'bg-[#27187E] w-6' : 'bg-neutral-300 hover:bg-neutral-400'}`;
+          dot.addEventListener('click', () => {
+            testIndex = i;
+            updateTestimonial();
+            resetTestAutoPlay();
+          });
+          testDotsContainer.appendChild(dot);
+        }
+      }
+
+      function updateTestimonial() {
+        const maxIndex = totalCards - visibleCards;
+        if (testIndex > maxIndex) testIndex = Math.max(0, maxIndex);
+        if (testIndex < 0) testIndex = 0;
+
+        const cardWidth = cards[0].offsetWidth;
+        testTrack.style.transform = `translateX(-${testIndex * cardWidth}px)`;
+
+        if(testPrev) testPrev.disabled = testIndex === 0;
+        if(testNext) testNext.disabled = testIndex >= maxIndex;
+
+        Array.from(testDotsContainer.children).forEach((dot, i) => {
+          if (i === testIndex) {
+            dot.classList.replace('bg-neutral-300', 'bg-[#27187E]');
+            dot.classList.replace('hover:bg-neutral-400', 'bg-[#27187E]');
+            dot.classList.add('w-6');
+          } else {
+            dot.classList.replace('bg-[#27187E]', 'bg-neutral-300');
+            dot.classList.add('hover:bg-neutral-400');
+            dot.classList.remove('w-6');
+          }
+        });
+      }
+
+      if(testPrev) testPrev.addEventListener('click', () => { testIndex--; updateTestimonial(); resetTestAutoPlay(); });
+      if(testNext) testNext.addEventListener('click', () => { testIndex++; updateTestimonial(); resetTestAutoPlay(); });
+
+      window.addEventListener('resize', () => {
+        const newVisible = getVisibleCount();
+        if (newVisible !== visibleCards) {
+          visibleCards = newVisible;
+          renderDots();
+        }
+        updateTestimonial(); 
+      });
+
+      function startTestAutoPlay() {
+        testAutoPlayInterval = setInterval(() => {
+          const maxIndex = totalCards - visibleCards;
+          if (testIndex >= maxIndex) testIndex = 0;
+          else testIndex++;
+          updateTestimonial();
+        }, 8000); 
+      }
+
+      function resetTestAutoPlay() {
+        clearInterval(testAutoPlayInterval);
+        startTestAutoPlay();
+      }
+
+      let isDraggingTest = false;
+      let startPosTest = 0;
+
+      testTrack.addEventListener('mousedown', (e) => dragStartTest(e.clientX));
+      testTrack.addEventListener('touchstart', (e) => dragStartTest(e.touches[0].clientX), {passive: true});
+      window.addEventListener('mouseup', dragEndTest);
+      window.addEventListener('touchend', dragEndTest);
+      testTrack.addEventListener('mousemove', (e) => dragActionTest(e.clientX));
+      testTrack.addEventListener('touchmove', (e) => dragActionTest(e.touches[0].clientX), {passive: true});
+
+      function dragStartTest(clientX) {
+        isDraggingTest = true;
+        startPosTest = clientX;
+        clearInterval(testAutoPlayInterval);
+      }
+
+      function dragActionTest(clientX) {
+        if (!isDraggingTest) return;
+        const diff = clientX - startPosTest;
+        if (diff < -50) { testNext.click(); isDraggingTest = false; }
+        else if (diff > 50) { testPrev.click(); isDraggingTest = false; }
+      }
+
+      function dragEndTest() {
+        isDraggingTest = false;
+        resetTestAutoPlay();
+      }
+
+      renderDots();
+      updateTestimonial();
+      startTestAutoPlay();
+    }
+    
+    // -------------------------------------------------------------------
+    // 11. Lógica del Modal de Reseñas
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnAbrirModal = document.getElementById('btn-dejar-resena');
+      const modalResena = document.getElementById('modal-resena');
+      const modalBg = document.getElementById('modal-bg');
+      const modalContent = document.getElementById('modal-content');
+      const btnCerrarModal = document.getElementById('btn-cerrar-modal');
+      const formResena = document.getElementById('form-escribir-resena');
+      const formEstado = document.getElementById('form-estado');
+      const exitoEstado = document.getElementById('exito-estado');
+
+      if (btnAbrirModal && modalResena) {
+        const abrirModal = () => {
+          modalResena.classList.remove('hidden');
+          modalResena.classList.add('flex');
+          setTimeout(() => {
+            modalBg.classList.replace('opacity-0', 'opacity-100');
+            modalContent.classList.replace('opacity-0', 'opacity-100');
+            modalContent.classList.replace('scale-95', 'scale-100');
+          }, 10);
+        };
+
+        const cerrarModal = () => {
+          modalBg.classList.replace('opacity-100', 'opacity-0');
+          modalContent.classList.replace('opacity-100', 'opacity-0');
+          modalContent.classList.replace('scale-100', 'scale-95');
+          setTimeout(() => {
+            modalResena.classList.add('hidden');
+            modalResena.classList.remove('flex');
+            setTimeout(() => {
+              formEstado.classList.remove('hidden');
+              exitoEstado.classList.add('hidden');
+              exitoEstado.classList.remove('flex');
+              formResena.reset(); 
+            }, 300);
+          }, 300); 
+        };
+
+        btnAbrirModal.addEventListener('click', abrirModal);
+        btnCerrarModal.addEventListener('click', cerrarModal);
+        modalBg.addEventListener('click', cerrarModal); 
+
+        formResena.addEventListener('submit', (e) => {
+          e.preventDefault(); 
+          formEstado.classList.add('hidden');
+          exitoEstado.classList.remove('hidden');
+          exitoEstado.classList.add('flex');
+          setTimeout(() => { cerrarModal(); }, 3000);
+        });
+      }
+    });
+    
+    // -------------------------------------------------------------------
+    // 12. Menú Flotante de Usuario (FAB)
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const fabButton = document.getElementById('fab-button');
+      const fabMenu = document.getElementById('fab-menu');
+      const fabIcon = document.getElementById('fab-icon');
+      let isFabOpen = false;
+
+      if(fabButton && fabMenu) {
+        const toggleMenu = () => {
+          isFabOpen = !isFabOpen;
+          if (isFabOpen) {
+            fabMenu.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
+            fabMenu.classList.add('opacity-100', 'translate-y-0');
+            fabIcon.classList.add('rotate-45'); 
+          } else {
+            fabMenu.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
+            fabMenu.classList.remove('opacity-100', 'translate-y-0');
+            fabIcon.classList.remove('rotate-45');
+          }
+        };
+
+        fabButton.addEventListener('click', toggleMenu);
+        document.addEventListener('click', (event) => {
+          if (isFabOpen && !fabButton.contains(event.target) && !fabMenu.contains(event.target)) {
+            toggleMenu();
+          }
+        });
+      }
+    });
+    
+    // -------------------------------------------------------------------
+    // 13 y 14. SISTEMA DE E-COMMERCE Y PERFIL DINÁMICO
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      
+      let carrito = [];
+      let historialPedidos = [];
+      let usuarioLogueado = false; 
+
+      // Botones Sesión y Perfil
+      const btnGoogleLogin = document.getElementById('btn-google-login');
+      const btnLoginFab = document.getElementById('btn-login');
+      const btnPerfilFab = document.getElementById('btn-perfil');
+      const btnLogoutFab = document.getElementById('btn-logout');
+      const fabButton = document.getElementById('fab-button'); 
+
+      // Perfil Dinámico (Nombres y Foto)
+      const profileNameText = document.getElementById('profile-name-text');
+      const btnEditPhoto = document.getElementById('btn-edit-photo');
+      const fileUploadInput = document.getElementById('file-upload');
+      const profileAvatarContent = document.getElementById('profile-avatar-content');
+
+      // Modales Login
+      const modalLoginCont = document.getElementById('modal-login-container');
+      const modalLoginBg = document.getElementById('modal-login-bg');
+      const modalLoginContent = document.getElementById('modal-login-content');
+      
+      // Notificaciones Toast
+      const toastNotif = document.getElementById('toast-notification');
+      const toastTitle = document.getElementById('toast-title');
+      const toastMessage = document.getElementById('toast-message');
+
+      const mostrarNotificacion = (titulo, mensaje) => {
+        if(!toastNotif || !toastTitle || !toastMessage) return;
+        toastTitle.innerText = titulo;
+        toastMessage.innerText = mensaje;
+        toastNotif.classList.remove('translate-x-[150%]', 'opacity-0');
+        toastNotif.classList.add('translate-x-0', 'opacity-100');
+        setTimeout(() => {
+          toastNotif.classList.remove('translate-x-0', 'opacity-100');
+          toastNotif.classList.add('translate-x-[150%]', 'opacity-0');
+        }, 4000);
+      };
+
+      const addSafeEvent = (id, evento, funcion) => {
+        const elemento = document.getElementById(id);
+        if(elemento) elemento.addEventListener(evento, funcion);
+      };
+
+      // Modales Control
+      const toggleLogin = (abrir) => {
+        if(!modalLoginCont || !modalLoginBg || !modalLoginContent) return;
+        if(abrir) {
+          modalLoginCont.classList.remove('hidden');
+          modalLoginCont.classList.add('flex');
+          setTimeout(() => {
+            modalLoginBg.classList.replace('opacity-0', 'opacity-100');
+            modalLoginContent.classList.replace('opacity-0', 'opacity-100');
+            modalLoginContent.classList.replace('scale-95', 'scale-100');
+          }, 10);
+        } else {
+          modalLoginBg.classList.replace('opacity-100', 'opacity-0');
+          modalLoginContent.classList.replace('opacity-100', 'opacity-0');
+          modalLoginContent.classList.replace('scale-100', 'scale-95');
+          setTimeout(() => { modalLoginCont.classList.add('hidden'); modalLoginCont.classList.remove('flex'); }, 300);
+        }
+      };
+
+      const toggleCarrito = (abrir) => {
+        const modal = document.getElementById('modal-carrito-side');
+        const bg = document.getElementById('carrito-bg');
+        const panel = document.getElementById('carrito-panel');
+        if(!modal || !bg || !panel) return;
+        if(abrir) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          setTimeout(() => {
+            bg.classList.replace('opacity-0', 'opacity-100');
+            panel.classList.replace('translate-x-full', 'translate-x-0');
+          }, 10);
+        } else {
+          bg.classList.replace('opacity-100', 'opacity-0');
+          panel.classList.replace('translate-x-0', 'translate-x-full');
+          setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
+        }
+      };
+
+      const toggleCheckout = (abrir) => {
+        const modal = document.getElementById('modal-checkout');
+        const bg = document.getElementById('checkout-bg');
+        const content = document.getElementById('checkout-content');
+        if(!modal || !bg || !content) return;
+        if(abrir) {
+          if(!usuarioLogueado) {
+            alert('Por favor, inicia sesión para realizar compras.');
+            return;
+          }
+          toggleCarrito(false);
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          setTimeout(() => {
+            bg.classList.replace('opacity-0', 'opacity-100');
+            content.classList.replace('opacity-0', 'opacity-100');
+            content.classList.replace('scale-95', 'scale-100');
+          }, 10);
+        } else {
+          bg.classList.replace('opacity-100', 'opacity-0');
+          content.classList.replace('opacity-100', 'opacity-0');
+          content.classList.replace('scale-100', 'scale-95');
+          setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
+        }
+      };
+
+      const togglePerfil = (abrir) => {
+        const modal = document.getElementById('modal-perfil-usuario');
+        const bg = document.getElementById('perfil-bg');
+        const content = document.getElementById('perfil-content');
+        if(!modal || !bg || !content) return;
+        if(abrir) {
+          renderizarHistorial();
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+          setTimeout(() => {
+            bg.classList.replace('opacity-0', 'opacity-100');
+            content.classList.replace('opacity-0', 'opacity-100');
+            content.classList.replace('scale-95', 'scale-100');
+          }, 10);
+        } else {
+          bg.classList.replace('opacity-100', 'opacity-0');
+          content.classList.replace('opacity-100', 'opacity-0');
+          content.classList.replace('scale-100', 'scale-95');
+          setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 300);
+        }
+      };
+
+      // Funciones del Carrito
+      const actualizarUI = () => {
+        const carritoContador = document.getElementById('carrito-contador');
+        const carritoTotal = document.getElementById('carrito-total');
+        const checkoutTotal = document.getElementById('checkout-total');
+        const listaCarrito = document.getElementById('lista-carrito');
+        const carritoVacio = document.getElementById('carrito-vacio');
+        const btnIrPagar = document.getElementById('btn-ir-pagar');
+
+        if(carritoContador) {
+          carritoContador.innerText = carrito.length;
+          if(carrito.length > 0) carritoContador.classList.remove('hidden');
+          else carritoContador.classList.add('hidden');
+        }
+
+        const total = carrito.reduce((sum, item) => sum + item.precio, 0);
+        if(carritoTotal) carritoTotal.innerText = total;
+        if(checkoutTotal) checkoutTotal.innerText = total;
+
+        if(listaCarrito) {
+          listaCarrito.innerHTML = '';
+          if(carrito.length === 0) {
+            if(carritoVacio) carritoVacio.classList.remove('hidden');
+            if(btnIrPagar) btnIrPagar.classList.add('hidden');
+          } else {
+            if(carritoVacio) carritoVacio.classList.add('hidden');
+            if(btnIrPagar) btnIrPagar.classList.remove('hidden');
+            carrito.forEach((item, index) => {
+              listaCarrito.innerHTML += `
+                <li class="flex justify-between items-center bg-white p-3 rounded-xl border border-neutral-100">
+                  <span class="font-bold text-sm text-[#1a1a1a]">${item.nombre}</span>
+                  <div class="flex items-center gap-3">
+                    <span class="text-[#27187E] font-black">$${item.precio}</span>
+                    <button onclick="eliminarDelCarrito(${index})" class="text-red-500 hover:text-red-700 p-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    </button>
+                  </div>
+                </li>`;
+            });
+          }
+        }
+      };
+
+      window.eliminarDelCarrito = (index) => {
+        carrito.splice(index, 1);
+        actualizarUI();
+      };
+
+      const renderizarHistorial = () => {
+        const listaPedidosPagados = document.getElementById('lista-pedidos-pagados');
+        const perfilSinPedidos = document.getElementById('perfil-sin-pedidos');
+        
+        if(!listaPedidosPagados || !perfilSinPedidos) return;
+
+        listaPedidosPagados.innerHTML = '';
+        if(historialPedidos.length === 0) {
+          perfilSinPedidos.classList.remove('hidden');
+        } else {
+          perfilSinPedidos.classList.add('hidden');
+          const historialReverso = [...historialPedidos].reverse();
+          
+          historialReverso.forEach(pedido => {
+            const itemsHtml = pedido.items.map(i => `<div class="text-sm text-neutral-500">• ${i.nombre}</div>`).join('');
+            listaPedidosPagados.innerHTML += `
+              <li class="p-4 hover:bg-neutral-50 border-b border-neutral-100 transition-colors">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <span class="inline-block bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded mb-1 uppercase tracking-wider">Pago Exitoso</span>
+                    <h4 class="font-bold text-[#27187E] text-sm">Pedido #${pedido.id}</h4>
+                    <p class="text-xs text-neutral-400">${pedido.fecha}</p>
+                  </div>
+                  <div class="text-right">
+                    <span class="font-black text-[#1a1a1a] block">$${pedido.total}</span>
+                  </div>
+                </div>
+                <div class="pl-2 border-l-2 border-neutral-200 mt-2">
+                  ${itemsHtml}
+                </div>
+              </li>`;
+          });
+        }
+      };
+
+      // Click Add to Cart
+      document.addEventListener('click', (e) => {
+        const btnClickeado = e.target.closest('.btn-agregar-carrito');
+        if (btnClickeado) {
+          e.preventDefault(); 
+          const nombre = btnClickeado.getAttribute('data-nombre');
+          const precio = parseFloat(btnClickeado.getAttribute('data-precio'));
+          
+          if(nombre && !isNaN(precio)) {
+            carrito.push({ nombre, precio });
+            actualizarUI();
+            mostrarNotificacion('Agregado al Carrito', `${nombre} ($${precio})`);
+          }
+        }
+      });
+
+      // Modals UI Triggers
+      addSafeEvent('btn-abrir-carrito', 'click', () => toggleCarrito(true));
+      addSafeEvent('btn-cerrar-carrito', 'click', () => toggleCarrito(false));
+      addSafeEvent('carrito-bg', 'click', () => toggleCarrito(false));
+
+      addSafeEvent('btn-ir-pagar', 'click', () => toggleCheckout(true));
+      addSafeEvent('btn-cerrar-checkout', 'click', () => toggleCheckout(false));
+      addSafeEvent('checkout-bg', 'click', () => toggleCheckout(false));
+
+      addSafeEvent('btn-perfil', 'click', () => { 
+        if(fabButton) fabButton.click(); 
+        togglePerfil(true); 
+      });
+      addSafeEvent('btn-cerrar-perfil', 'click', () => togglePerfil(false));
+      addSafeEvent('perfil-bg', 'click', () => togglePerfil(false));
+
+      // Login y Perfil Dinámico
+      if(btnLoginFab) {
+        btnLoginFab.addEventListener('click', () => {
+          if(fabButton) fabButton.click();
+          toggleLogin(true);
+        });
+      }
+      
+      addSafeEvent('btn-cerrar-login', 'click', () => toggleLogin(false));
+      addSafeEvent('modal-login-bg', 'click', () => toggleLogin(false));
+
+      if(btnGoogleLogin) {
+        btnGoogleLogin.addEventListener('click', () => {
+          const originalText = btnGoogleLogin.innerHTML;
+          btnGoogleLogin.innerHTML = `<svg class="animate-spin h-5 w-5 text-neutral-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Conectando...`;
+          
+          setTimeout(() => {
+            usuarioLogueado = true;
+            toggleLogin(false);
+            
+            if(btnLoginFab) btnLoginFab.classList.add('hidden');
+            if(btnPerfilFab) btnPerfilFab.classList.remove('hidden');
+            if(btnLogoutFab) btnLogoutFab.classList.remove('hidden');
+            
+            // Asigna tu nombre dinámico
+            if(profileNameText) profileNameText.innerText = 'Gael Garcia Lujano'; 
+            
+            setTimeout(() => { btnGoogleLogin.innerHTML = originalText; }, 500);
+            mostrarNotificacion('¡Bienvenido, Gael!', 'Has iniciado sesión correctamente.');
+          }, 1500);
+        });
+      }
+
+      if(btnLogoutFab) {
+        btnLogoutFab.addEventListener('click', () => {
+          if(fabButton) fabButton.click(); 
+          usuarioLogueado = false;
+          
+          if(btnLoginFab) btnLoginFab.classList.remove('hidden');
+          if(btnPerfilFab) btnPerfilFab.classList.add('hidden');
+          if(btnLogoutFab) btnLogoutFab.classList.add('hidden');
+          
+          // Reinicia el nombre y foto
+          if(profileNameText) profileNameText.innerText = 'Usuario'; 
+          if(profileAvatarContent) profileAvatarContent.innerHTML = '👤';
+          
+          mostrarNotificacion('Sesión finalizada', 'Esperamos verte pronto de regreso.');
+        });
+      }
+
+      // Subir y mostrar Foto de Perfil Local
+      if(btnEditPhoto && fileUploadInput) {
+        btnEditPhoto.addEventListener('click', () => {
+          fileUploadInput.click();
+        });
+
+        fileUploadInput.addEventListener('change', (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+              if(profileAvatarContent) {
+                  profileAvatarContent.innerHTML = `<img src="${event.target.result}" class="w-full h-full object-cover rounded-full" />`;
+              }
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+
+      // Procesar Checkout
+      const formPago = document.getElementById('form-pago');
+      const btnProcesarPago = document.getElementById('btn-procesar-pago');
+      
+      if(formPago && btnProcesarPago) {
+        formPago.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const originalText = btnProcesarPago.innerHTML;
+          btnProcesarPago.innerHTML = `Procesando...`;
+
+          setTimeout(() => {
+            const fechaActual = new Date().toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
+            const totalPagado = carrito.reduce((sum, item) => sum + item.precio, 0);
+            
+            historialPedidos.push({
+              fecha: fechaActual,
+              items: [...carrito],
+              total: totalPagado,
+              id: 'NX-' + Math.floor(Math.random() * 10000)
+            });
+
+            carrito = [];
+            actualizarUI();
+            formPago.reset();
+            btnProcesarPago.innerHTML = originalText;
+            toggleCheckout(false);
+
+            mostrarNotificacion('¡Pago exitoso!', 'Tus productos están en tu Perfil.');
+          }, 2000);
+        });
+      }
+    });
+
+    // -------------------------------------------------------------------
+    // 15. Carrusel 3D de Socios (Versión Corregida)
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const imgContainer = document.getElementById('socios-img-container');
+      const socioName = document.getElementById('socio-name');
+      const socioDesig = document.getElementById('socio-desig');
+      const socioQuote = document.getElementById('socio-quote');
+      const socioContent = document.getElementById('socios-content');
+      const btnPrev = document.getElementById('socio-prev');
+      const btnNext = document.getElementById('socio-next');
+
+      if (!imgContainer) return;
+
+      const sociosData = [
+        {
+          name: "Dasha Taran",
+          designation: "Modelo y Creadora de Contenido",
+          quote: "El cuidado y la estética van de la mano. Nexu-Nutri asegura que mi mascota siempre luzca radiante y llena de vida, reflejando su salud desde el interior.",
+          src: "images/Dasha_Taran.png" 
+        },
+        {
+          name: "Cristiano Ronaldo",
+          designation: "Atleta de Élite",
+          quote: "El alto rendimiento no es solo para atletas. Mi perro necesita la mejor nutrición para mantenerse activo y fuerte, por eso elegimos lo mejor para él.",
+          src: "images/Cristiano_Ronaldo.png" 
+        },
+        {
+          name: "Jordan Barrett",
+          designation: "Supermodelo Internacional",
+          quote: "El estilo de vida editorial exige perfección y energía. Nexu-Nutri aporta ese balance premium que mi compañero necesita para brillar en cualquier entorno.",
+          src: "images/Jordan_Barret.png" 
+        }
+      ];
+
+      const totalSocios = sociosData.length;
+      let activeIndex = 0;
+      let autoPlayInterval;
+
+      sociosData.forEach((socio, index) => {
+        const img = document.createElement('img');
+        img.src = socio.src;
+        img.alt = socio.name;
+        
+        // HACK: Nuevo respaldo por si no encuentra la foto en tu computadora
+        img.onerror = function() { 
+          this.onerror = null; // Evita ciclos de error
+          this.src = `https://placehold.co/600x800/1a1a1a/ffffff?text=${socio.name.replace(/ /g, '+')}`; 
+        };
+        
+        // Se agregó un fondo gris (bg-[#1a1a1a]) para que la tarjeta siempre sea visible
+        img.className = 'socio-img absolute top-0 left-0 w-full h-full object-cover rounded-[2rem] shadow-2xl bg-[#1a1a1a]';
+        img.id = `socio-img-${index}`;
+        imgContainer.appendChild(img);
+      });
+
+      const images = imgContainer.querySelectorAll('.socio-img');
+
+      const calculateGap = () => {
+        const width = imgContainer.offsetWidth;
+        if (width < 640) return 60; 
+        if (width < 1024) return 120; 
+        return 180; 
+      };
+
+      const updateSocios = () => {
+        const gap = calculateGap();
+        const maxStickUp = gap * 0.4;
+
+        images.forEach((img, index) => {
+          const isActive = index === activeIndex;
+          const isLeft = (activeIndex - 1 + totalSocios) % totalSocios === index;
+          const isRight = (activeIndex + 1) % totalSocios === index;
+
+          if (isActive) {
+            img.style.zIndex = 3;
+            img.style.opacity = 1;
+            img.style.transform = `translateX(0px) translateY(0px) scale(1) rotateY(0deg)`;
+          } else if (isLeft) {
+            img.style.zIndex = 2;
+            img.style.opacity = 1;
+            img.style.transform = `translateX(-${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(15deg)`;
+          } else if (isRight) {
+            img.style.zIndex = 2;
+            img.style.opacity = 1;
+            img.style.transform = `translateX(${gap}px) translateY(-${maxStickUp}px) scale(0.85) rotateY(-15deg)`;
+          } else {
+            img.style.zIndex = 1;
+            img.style.opacity = 0;
+            img.style.transform = `scale(0.5)`;
+          }
+        });
+
+        socioContent.style.opacity = 0;
+        setTimeout(() => {
+          socioName.innerText = sociosData[activeIndex].name;
+          socioDesig.innerText = sociosData[activeIndex].designation;
+          socioQuote.innerText = `"${sociosData[activeIndex].quote}"`;
+          socioContent.style.opacity = 1;
+        }, 300);
+      };
+
+      const nextSocio = () => {
+        activeIndex = (activeIndex + 1) % totalSocios;
+        updateSocios();
+        resetAutoPlay();
+      };
+
+      const prevSocio = () => {
+        activeIndex = (activeIndex - 1 + totalSocios) % totalSocios;
+        updateSocios();
+        resetAutoPlay();
+      };
+
+      if(btnNext) btnNext.addEventListener('click', nextSocio);
+      if(btnPrev) btnPrev.addEventListener('click', prevSocio);
+
+      const startAutoPlay = () => {
+        autoPlayInterval = setInterval(nextSocio, 5000);
+      };
+
+      const resetAutoPlay = () => {
+        clearInterval(autoPlayInterval);
+        startAutoPlay();
+      };
+
+      window.addEventListener('resize', updateSocios);
+      updateSocios();
+      startAutoPlay();
+    });
+
+    // -------------------------------------------------------------------
+    // 16. Efecto Ripple (Ondas)
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const section = document.getElementById('sobre-nosotros');
+      const container = document.getElementById('ripple-container');
+      
+      if (!section || !container) return;
+
+      const crearRipple = (x, y) => {
+        const rippleWrapper = document.createElement('div');
+        rippleWrapper.style.left = `${x}px`;
+        rippleWrapper.style.top = `${y}px`;
+        rippleWrapper.className = 'absolute pointer-events-none transform -translate-x-1/2 -translate-y-1/2';
+
+        const ripple1 = document.createElement('div');
+        ripple1.className = 'ripple-element ripple-1 absolute inset-0';
+        const ripple2 = document.createElement('div');
+        ripple2.className = 'ripple-element ripple-2 absolute inset-0';
+        const ripple3 = document.createElement('div');
+        ripple3.className = 'ripple-element ripple-3 absolute inset-0';
+
+        rippleWrapper.appendChild(ripple1);
+        rippleWrapper.appendChild(ripple2);
+        rippleWrapper.appendChild(ripple3);
+        
+        container.appendChild(rippleWrapper);
+
+        setTimeout(() => { rippleWrapper.remove(); }, 2000);
+      };
+
+      section.addEventListener('click', (e) => {
+        const rect = section.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        crearRipple(x, y);
+      });
+
+      setInterval(() => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const x = Math.random() * rect.width;
+          const y = Math.random() * rect.height;
+          crearRipple(x, y);
+        }
+      }, 3000);
+    });
+
+    // -------------------------------------------------------------------
+    // 17. Modal Veterinarios
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnAbrirVet = document.getElementById('btn-abrir-vet');
+      const modalVet = document.getElementById('modal-veterinarios');
+      const bgVet = document.getElementById('vet-bg');
+      const contentVet = document.getElementById('vet-content');
+      const btnCerrarVet = document.getElementById('btn-cerrar-vet');
+
+      if (btnAbrirVet && modalVet) {
+        const toggleVet = (abrir) => {
+
+          if (abrir) {
+            modalVet.classList.remove('hidden');
+            modalVet.classList.add('flex');
+            setTimeout(() => {
+              bgVet.classList.replace('opacity-0', 'opacity-100');
+              contentVet.classList.replace('opacity-0', 'opacity-100');
+              contentVet.classList.replace('scale-95', 'scale-100');
+            }, 10);
+          } else {
+            bgVet.classList.replace('opacity-100', 'opacity-0');
+            contentVet.classList.replace('opacity-100', 'opacity-0');
+            contentVet.classList.replace('scale-100', 'scale-95');
+            setTimeout(() => {
+              modalVet.classList.add('hidden');
+              modalVet.classList.remove('flex');
+            }, 300);
+          }
+        };
+
+        btnAbrirVet.addEventListener('click', (e) => {
+          e.preventDefault();
+          toggleVet(true);
+        });
+        if(btnCerrarVet) btnCerrarVet.addEventListener('click', () => toggleVet(false));
+        if(bgVet) bgVet.addEventListener('click', () => toggleVet(false));
+      }
+    });
+	  
+	  // -------------------------------------------------------------------
+    // 18. Lógica de Preguntas Frecuentes (FAQ Accordion)
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      faqItems.forEach(item => {
+        const btn = item.querySelector('.faq-btn');
+        const content = item.querySelector('.faq-content');
+        const icon = item.querySelector('.faq-icon');
+
+        btn.addEventListener('click', () => {
+          const isOpen = content.style.maxHeight;
+
+          // Cierra cualquier otra pregunta que esté abierta
+          document.querySelectorAll('.faq-content').forEach(c => c.style.maxHeight = null);
+          document.querySelectorAll('.faq-icon').forEach(i => i.classList.remove('rotate-180'));
+
+          // Si esta pregunta no estaba abierta, la abre con una animación suave
+          if (!isOpen) {
+            content.style.maxHeight = content.scrollHeight + "px";
+            icon.classList.add('rotate-180');
+          }
+        });
+      });
+    });
+	  
+	  
+	  // -------------------------------------------------------------------
+    // 19. Lógica del Menú Móvil (Hamburguesa)
+    // -------------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const btnMenuMovil = document.getElementById('btn-menu-movil');
+      const menuMovilDesplegable = document.getElementById('menu-movil-desplegable');
+      const linksMovil = document.querySelectorAll('.nav-link-movil');
+      let menuAbierto = false;
+
+      if (btnMenuMovil && menuMovilDesplegable) {
+        const toggleMenu = () => {
+          menuAbierto = !menuAbierto;
+          if (menuAbierto) {
+            menuMovilDesplegable.classList.remove('-translate-y-full', 'opacity-0');
+            menuMovilDesplegable.classList.add('translate-y-0', 'opacity-100');
+          } else {
+            menuMovilDesplegable.classList.add('-translate-y-full', 'opacity-0');
+            menuMovilDesplegable.classList.remove('translate-y-0', 'opacity-100');
+          }
+        };
+
+        btnMenuMovil.addEventListener('click', toggleMenu);
+
+        // Cerrar menú automáticamente cuando tocan una opción
+        linksMovil.forEach(link => {
+          link.addEventListener('click', () => {
+            if(menuAbierto) toggleMenu();
+          });
+        });
+      }
+    });
+	  
+  </script>
+</body>
+</html>
